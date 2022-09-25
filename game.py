@@ -6,9 +6,10 @@ import pygame
 
 from utility import createGridGui
 from utility import drawGrid
-from utility import createShape
+from utility import createNewShape
 from utility import handleShape 
 from utility import drawShape
+
 
 
 # COLORS 
@@ -51,7 +52,7 @@ def game():
     run = True 
     clock = pygame.time.Clock()
     gridGui = createGridGui()
-    shape = createShape()
+    shape = createNewShape()
     shapeList = [] 
     key_pressed = False 
     create_new_shape = False 
@@ -69,18 +70,12 @@ def game():
                 break
             
 
+
+        # NEW-SHAPE 
         if create_new_shape == True:
-            
             create_new_shape = False 
-            box_face = WIN_WIDTH/COL_NUM
-            x = 0
-            y = 0
-            shape = pygame.Rect(x,y, box_face, box_face)
-            print (shape.y)
-                    
+            shape = createNewShape()
             
-
-
 
         # HANDLE-SHAPES   
         keys = pygame.key.get_pressed()
@@ -88,10 +83,6 @@ def game():
         if (keys[pygame.K_LEFT] == False) and (keys[pygame.K_RIGHT] == False): key_pressed = False
 
 
-
-
-        
-        
         # DRAW 
         WIN.fill(WHITE)
         drawGrid(gridGui)

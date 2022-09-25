@@ -40,13 +40,12 @@ def drawGrid(grid):
 
 # ------------------------------------ SHAPE -----------------------------------------
 # CREATE 
-def createShape():
+def createNewShape():
     box_face = WIN_WIDTH/COL_NUM
-    x = 3 * box_face
+    x = 0
     y = 0
     shape = pygame.Rect(x,y, box_face, box_face)
-    return shape
-    
+    return shape 
 
 
 # HANDLE 
@@ -64,7 +63,7 @@ def handleShape(shape, key_pressed, create_new_shape, keys, shapeList):
         shape.x -= shape_face
         key_pressed = True
     
-    
+
     # ADD TO SHAPE-LIST 
     # hit-bottom 
     if shape.y >= WIN_HEIGHT - shape_face:
@@ -83,6 +82,9 @@ def handleShape(shape, key_pressed, create_new_shape, keys, shapeList):
     
     return key_pressed, create_new_shape 
 
+
 # DRAW 
 def drawShape(shape):
     pygame.draw.rect(WIN, BLACK, shape)
+
+    
