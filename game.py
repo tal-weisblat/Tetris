@@ -4,7 +4,11 @@
 import pygame 
 
 
-
+from utility import createGridGui
+from utility import drawGrid
+from utility import createShape
+from utility import handleShape 
+from utility import drawShape
 
 
 # COLORS 
@@ -21,68 +25,23 @@ pygame.init()
 
 
 
-# GRID 
+        
+
+
+
+
 ROW_NUM = 12
 COL_NUM = 8 
 
-def createGridBoard():
-    
-    gridBoard = [] 
-    for row in range(ROW_NUM):
-       gridBoard.append([0 for col in range(COL_NUM)])
-
-    return gridBoard
-
-def createGridGui():
-    gridGui = []
-    box_face = WIN_WIDTH/COL_NUM
-    for row in range(ROW_NUM):
-        for col in range(COL_NUM):
-            x = col*box_face
-            y = row*box_face
-            box = pygame.Rect(x,y, box_face, box_face)
-            box.topleft = (x,y)
-            gridGui.append(box)
-    return gridGui 
-
-
-# DRAW GRID 
-def drawGrid(grid):
-    for box in grid:
-        pygame.draw.rect(WIN,BLACK,box,1)
 
 
 
-# CREATE SHAPE
-def createShape():
-    box_face = WIN_WIDTH/COL_NUM
-    x = 3 * box_face
-    y = 0
-    shape = pygame.Rect(x,y, box_face, box_face)
-    return shape
 
-# SHAPE MOVE 
-SHAPE_VEL = 2
-def shapeMove(shape, key_pressed, keys):
+# shapeList
+def drawShapeList(shapesList):
+    for shape in shapesList:
+        pygame.draw.rect(WIN,BLACK,shape)
 
-    shape_face = WIN_WIDTH/COL_NUM
-    shape.y += SHAPE_VEL
-    if (keys[pygame.K_RIGHT]) and (key_pressed == False):
-        shape.x += shape_face
-        key_pressed = True 
-    if keys[pygame.K_LEFT] and (key_pressed == False):
-        shape.x -= shape_face
-        key_pressed = True
-
-    #if shape.y >= WIN_HEIGHT - shape_face:
-
-    
-    return key_pressed 
-
-    
-# DRAW SHPAE 
-def shapeDraw(shape):
-    pygame.draw.rect(WIN, BLACK, shape)
 
 
 
@@ -92,10 +51,10 @@ def game():
     run = True 
     clock = pygame.time.Clock()
     gridGui = createGridGui()
-    gridBoard = createGridBoard()
     shape = createShape()
+    shapeList = [] 
     key_pressed = False 
-    
+    create_new_shape = False 
 
     while run: 
 
@@ -110,21 +69,35 @@ def game():
                 break
             
 
-        # SHAPE MOVE  
+        if create_new_shape == True:
+            
+            create_new_shape = False 
+            box_face = WIN_WIDTH/COL_NUM
+            x = 0
+            y = 0
+            shape = pygame.Rect(x,y, box_face, box_face)
+            print (shape.y)
+                    
+            
+
+
+
+        # HANDLE-SHAPES   
         keys = pygame.key.get_pressed()
-        key_pressed = shapeMove(shape, key_pressed, keys)        
-        if (keys[pygame.K_LEFT] == False) and (keys[pygame.K_RIGHT] == False):  
-            key_pressed = False
+        key_pressed, create_new_shape = handleShape(shape, key_pressed, create_new_shape, keys, shapeList)        
+        if (keys[pygame.K_LEFT] == False) and (keys[pygame.K_RIGHT] == False): key_pressed = False
 
 
-        # COLLISION 
+
 
         
         
         # DRAW 
         WIN.fill(WHITE)
         drawGrid(gridGui)
-        shapeDraw(shape)
+        drawShapeList(shapeList)
+        drawShapeList(shapeList)
+        drawShape(shape)
         pygame.display.update()
 
 
