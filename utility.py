@@ -1,10 +1,9 @@
 
 import pygame 
+import os 
 
 
-# COLORS 
-WHITE = (255,255,255)
-BLACK = (0,0,0)
+
 
 # WINDOW 
 WIN_WIDTH  = 100 * 4  
@@ -14,12 +13,23 @@ pygame.display.set_caption('Tetris')
 pygame.init()
 
 
+# COLORS 
+WHITE = (255,255,255)
+BLACK = (0,0,0)
 
-# ------------------------------------ GRID -----------------------------------------
-# CREATE  
+# SOUNDS 
+pygame.mixer.init()
+COLLISION_SOUND = pygame.mixer.Sound(os.path.join('files/sounds', 'tick.mp3'))
+LINEREMOVE_SOUND = pygame.mixer.Sound(os.path.join('files/sounds','line_removal_2.wav'))
+
+
 ROW_NUM = 12
 COL_NUM = 8 
-def createGridGui():
+SHAPE_VEL = 6
+
+
+# ------------------------------------ GRID -----------------------------------------
+def createGrid():   # create grid 
     gridGui = []
     box_face = WIN_WIDTH/COL_NUM
     for row in range(ROW_NUM):
@@ -30,9 +40,8 @@ def createGridGui():
             box.topleft = (x,y)
             gridGui.append(box)
     return gridGui 
-
-# DRAW  
-def drawGrid(grid):
+ 
+def drawGrid(grid):    # draw grid 
     for box in grid:
         pygame.draw.rect(WIN,BLACK,box,1)
 
@@ -48,9 +57,8 @@ def createNewShape():
     return shape 
 
 
-# HANDLE-SHAPE 
-SHAPE_VEL = 3
-def shapeMove(shape, key_pressed, keys, shapeList):
+
+def moveShape(shape, key_pressed, keys, shapeList):
 
     shape_face = WIN_WIDTH/COL_NUM
     
@@ -84,6 +92,7 @@ def shapeMove(shape, key_pressed, keys, shapeList):
     return key_pressed 
 
 
+
 def addToShapeList(shape, shapeList):
     
     create_new_shape = False  
@@ -91,12 +100,14 @@ def addToShapeList(shape, shapeList):
     
     # ADD TO shapeList
     if shape.y >= WIN_HEIGHT - shape_face:        # hit-bottom  
+        COLLISION_SOUND.play()
         shape.y = WIN_HEIGHT - shape_face
         shapeList.append(shape)
         create_new_shape = True
     else:                                         # collision (with other shapes)
         for shape_ in shapeList:
             if shape_.colliderect(shape):
+                COLLISION_SOUND.play()
                 shape.y = shape_.y - shape_face
                 shapeList.append(shape)
                 create_new_shape = True 
@@ -105,9 +116,53 @@ def addToShapeList(shape, shapeList):
     return create_new_shape
 
 
-
 # DRAW 
 def drawShape(shape):
     pygame.draw.rect(WIN, BLACK, shape)
+
+
+# ------------------------------------ shapeList -----------------------------------------
+
+# DRAW 
+def drawShapeList(shapesList):
+    for shape in shapesList:
+        pygame.draw.rect(WIN,BLACK,shape)
+
+
+# CHECK ROWS 
+def removeRowFromShapeList(shapeList):
+    
+    # STAGE-1 ; check rows 
+    rowFilled = True
+    y = 550
+    for x in [0,50,100,150,200,250,300,350]:
+        boxFilled = False
+        for shape in shapeList: 
+            print (shape.y)
+            if shape.x == x and shape.y == y :
+                boxFilled = True 
+                break
+
+        if boxFilled == False :
+            rowFilled = False
+            break 
+        
+    # STAGE-2 ; erase rows 
+    if rowFilled: 
+        y = 550
+        for x in [0,50,100,150,200,250,300,350]:
+            for shape in shapeList: 
+                if (shape.y == y and 
+                   (shape.x == 0 or shape.x == 50 or shape.x == 100 or shape.x == 150 or 
+                    shape.x == 200 or shape.x == 250 or shape.x == 300 or 
+                    shape.x == 350 )):
+                    LINEREMOVE_SOUND.play()
+                    shapeList.remove(shape)
+
+    # STAGE-3 ; lower all rows above 
+    if rowFilled: 
+        for shape in shapeList: 
+            shape.y += 50
+
 
     
