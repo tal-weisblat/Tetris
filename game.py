@@ -7,8 +7,9 @@ import pygame
 from utility import createGridGui
 from utility import drawGrid
 from utility import createNewShape
-from utility import handleShape 
+from utility import shapeMove 
 from utility import drawShape
+from utility import addToShapeList
 
 
 
@@ -46,14 +47,58 @@ def drawShapeList(shapesList):
 
 
 
+# CHECK 1st ROW  
+def CheckShapeListRows(shapeList):
+    
+
+    # STAGE-1 ; check rows 
+    rowFilled = True
+    y = 550
+    for x in [0,50,100,150,200,250,300,350]:
+        boxFilled = False
+        for shape in shapeList: 
+            print (shape.y)
+            if shape.x == x and shape.y == y :
+                boxFilled = True 
+                break
+
+        if boxFilled == False :
+            rowFilled = False
+            break 
+        
+    # STAGE-2 ; erase rows 
+    if rowFilled: 
+        #print ('remove row')
+        y = 550
+        for x in [0,50,100,150,200,250,300,350]:
+            for shape in shapeList: 
+                if (shape.y == y and 
+                   (shape.x == 0 or shape.x == 50 or shape.x == 100 or shape.x == 150 or 
+                    shape.x == 200 or shape.x == 250 or shape.x == 300 or 
+                    shape.x == 350 )):
+                    shapeList.remove(shape)
+
+
+
+    # STAGE-3 ; lower all rows above 
+    if rowFilled: 
+        for shape in shapeList: 
+            shape.y += 50
+
+
+
+
+    
+
+
 
 def game():
     
     run = True 
+    shapeList = []
     clock = pygame.time.Clock()
     gridGui = createGridGui()
-    shape = createNewShape()
-    shapeList = [] 
+    shape = createNewShape() 
     key_pressed = False 
     create_new_shape = False 
 
@@ -70,6 +115,9 @@ def game():
                 break
             
 
+        # CHECK ROWS
+        CheckShapeListRows(shapeList) 
+
 
         # NEW-SHAPE 
         if create_new_shape == True:
@@ -79,7 +127,8 @@ def game():
 
         # HANDLE-SHAPES   
         keys = pygame.key.get_pressed()
-        key_pressed, create_new_shape = handleShape(shape, key_pressed, create_new_shape, keys, shapeList)        
+        key_pressed = shapeMove(shape, key_pressed, keys, shapeList)    
+        create_new_shape = addToShapeList(shape, shapeList)    
         if (keys[pygame.K_LEFT] == False) and (keys[pygame.K_RIGHT] == False): key_pressed = False
 
 

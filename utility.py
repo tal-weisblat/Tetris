@@ -48,39 +48,62 @@ def createNewShape():
     return shape 
 
 
-# HANDLE 
-SHAPE_VEL = 2
-def handleShape(shape, key_pressed, create_new_shape, keys, shapeList):
+# HANDLE-SHAPE 
+SHAPE_VEL = 3
+def shapeMove(shape, key_pressed, keys, shapeList):
 
     shape_face = WIN_WIDTH/COL_NUM
     
     # movement 
     shape.y += SHAPE_VEL
-    if (keys[pygame.K_RIGHT]) and (key_pressed == False):
+
+    # check collision-right 
+    no_collision_right = True 
+    shape_temp = pygame.Rect(shape.x, shape.y, shape_face, shape_face)
+    shape_temp.x += shape_face 
+    for shape_ in shapeList:
+        if shape_.colliderect(shape_temp):
+            no_collision_right = False 
+
+    # check collision-left 
+    no_collision_left = True 
+    shape_temp = pygame.Rect(shape.x, shape.y, shape_face, shape_face)
+    shape_temp.x -= shape_face 
+    for shape_ in shapeList:
+        if shape_.colliderect(shape_temp):
+            no_collision_left = False 
+
+    # taking right/left 
+    if (keys[pygame.K_RIGHT]) and (key_pressed == False) and (shape.x + shape_face < WIN_WIDTH) and (no_collision_right):
         shape.x += shape_face
         key_pressed = True 
-    if keys[pygame.K_LEFT] and (key_pressed == False):
+    if keys[pygame.K_LEFT] and (key_pressed == False) and (shape.x > 0) and (no_collision_left): 
         shape.x -= shape_face
         key_pressed = True
-    
 
-    # ADD TO SHAPE-LIST 
-    # hit-bottom 
-    if shape.y >= WIN_HEIGHT - shape_face:
+    return key_pressed 
+
+
+def addToShapeList(shape, shapeList):
+    
+    create_new_shape = False  
+    shape_face = WIN_WIDTH/COL_NUM
+    
+    # ADD TO shapeList
+    if shape.y >= WIN_HEIGHT - shape_face:        # hit-bottom  
+        shape.y = WIN_HEIGHT - shape_face
         shapeList.append(shape)
         create_new_shape = True
+    else:                                         # collision (with other shapes)
+        for shape_ in shapeList:
+            if shape_.colliderect(shape):
+                shape.y = shape_.y - shape_face
+                shapeList.append(shape)
+                create_new_shape = True 
+                break 
 
-    # collision
-    for shape_ in shapeList:
-        print(shape_.y)
-        if shape_.colliderect(shape):
-            shape.y -=1 
-            shapeList.append(shape)
-            create_new_shape = True 
-            break 
-    
-    
-    return key_pressed, create_new_shape 
+    return create_new_shape
+
 
 
 # DRAW 
