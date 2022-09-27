@@ -48,6 +48,7 @@ def drawGrid(grid):    # draw grid
 
 
 # ------------------------------------ SHAPE -----------------------------------------
+
 # CREATE 
 def createNewShape():
     box_face = WIN_WIDTH/COL_NUM
@@ -56,8 +57,7 @@ def createNewShape():
     shape = pygame.Rect(x,y, box_face, box_face)
     return shape 
 
-
-
+# MOVE 
 def moveShape(shape, key_pressed, keys, shapeList):
 
     shape_face = WIN_WIDTH/COL_NUM
@@ -92,7 +92,7 @@ def moveShape(shape, key_pressed, keys, shapeList):
     return key_pressed 
 
 
-
+# ADD TO shapeList 
 def addToShapeList(shape, shapeList):
     
     create_new_shape = False  
