@@ -9,8 +9,8 @@ from components.grid import createGrid, drawGrid                 # grid
 from components.shapeList import drawList, removeRow, addObject
 from objectTypes.L_object import L_create, L_rotate              # unique 
 from objectTypes.cube_object import cube_create
-from objectCommonFunc.moveObject import moveObject               # common 
-from objectCommonFunc.drawObject import draw
+from objectFunc.moveObject import moveObject               # common 
+from objectFunc.drawObject import draw
 
 # BUG: need to generalize to ALL objects 
 # from utility import createNewShape     
