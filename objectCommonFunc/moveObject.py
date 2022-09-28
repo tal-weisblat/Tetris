@@ -1,20 +1,8 @@
 
-import pygame 
+from gameSettings import * 
 
 
-# WINDOW 
-WIN_WIDTH  = 100 * 4  
-WIN_HEIGHT = 100 * 6 
-WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-pygame.display.set_caption('Tetris')
-pygame.init()
-
-COL_NUM = 8
-SHAPE_VEL = 4
-
-
-
-# MOVE 
+# ---------------------------------------- MOVE -------------------------------------------- 
 def moveObject(keys, key_pressed, object, objectList):
     
     # move downwards 
@@ -26,7 +14,6 @@ def moveObject(keys, key_pressed, object, objectList):
     shape_face = WIN_WIDTH/COL_NUM
     max_x = max(box.x for box in object)
     min_x = min(box.x for box in object)
-
 
     # restrictions (regarding objects in objectList)
     # right 

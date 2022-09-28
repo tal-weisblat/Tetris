@@ -1,18 +1,9 @@
 
-import pygame 
+
+from gameSettings import *
 
 
-
-
-
-WIN_WIDTH  = 100 * 4 
-COL_NUM = 8  
-box_face = WIN_WIDTH/COL_NUM
-
-
-
-
-# CREATE OBJECT 
+# ---------------------------------------------- CREATE -----------------------------------------------
 def L_create():
     L_object = []
     shape_1 = pygame.Rect(0,0, box_face, box_face)
@@ -23,12 +14,9 @@ def L_create():
     L_object.append(shape_2)
     L_object.append(shape_3)
     L_object.append(shape_4)
-
     return L_object
 
-
-
-# ROTATE 
+# ---------------------------------------------- ROTATE -----------------------------------------------
 def L_rotate(keys, space_pressed, complex_object):
     
     if keys[pygame.K_SPACE] and (space_pressed == False):    

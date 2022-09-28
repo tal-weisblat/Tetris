@@ -1,24 +1,9 @@
 
-# CUBE 
-# from symmetry -> no rotation needed 
+
+from gameSettings import * 
 
 
-import pygame 
-
-
-# WINDOW 
-WIN_WIDTH  = 100 * 4  
-WIN_HEIGHT = 100 * 6 
-WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-pygame.display.set_caption('Tetris')
-pygame.init()
-
-
-COL_NUM = 8  
-box_face = WIN_WIDTH/COL_NUM
-
-
-# CREATE 
+# -------------------------------------------- CREATE -------------------------------------------- 
 def cube_create():
     cube_object = []
     x = 1*box_face            # make it random ? 

@@ -1,42 +1,19 @@
 
 
 
-import pygame 
+
+from gameSettings import *
 
 
-# grid 
-from components.grid import createGrid, drawGrid
+from components.grid import createGrid, drawGrid                 # grid 
 from components.shapeList import drawList, removeRow, addObject
-
+from objectTypes.L_object import L_create, L_rotate              # unique 
+from objectTypes.cube_object import cube_create
+from objectCommonFunc.moveObject import moveObject               # common 
+from objectCommonFunc.drawObject import draw
 
 # BUG: need to generalize to ALL objects 
 # from utility import createNewShape     
-
-# unique 
-from objectTypes.L_object import L_create, L_rotate
-from objectTypes.cube_object import cube_create
-
-# common 
-from objectCommonFunc.moveObject import moveObject
-from objectCommonFunc.drawObject import draw
-
-
-
-# WINDOWS
-WIN_WIDTH  = 100 * 4  
-WIN_HEIGHT = 100 * 6 
-WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-pygame.display.set_caption('Tetris')
-pygame.init()
-
-
-# COLORS 
-WHITE = (255,255,255)
-BLACK = (0,0,0)
-
-COL_NUM = 8  
-box_face = WIN_WIDTH/COL_NUM
-
 
 
 
