@@ -5,9 +5,9 @@ from gameSettings import *
 
 
 # ------------------------------------- DRAW ----------------------------------------------
-def drawList(shapesList):
-    for shape in shapesList:
-        pygame.draw.rect(WIN,BLACK,shape)
+def drawList(boxList):
+    for box in boxList:
+        pygame.draw.rect(WIN,BLACK,box)
 
 
 # ------------------------------------- REMOVE ----------------------------------------------
@@ -50,28 +50,45 @@ def removeRow(shapeList):
 
 
 # ------------------------------------- ADD ---------------------------------------------- 
-def addObject(object, shapeList):
+def addObject(object, boxList):
     
 
-    shape = object[0]   # only 1 cube within (need to generalize ....)
+    max_y = max(box.y for box in object)
+
 
     create_new_shape = False  
     shape_face = WIN_WIDTH/COL_NUM
     
-    # ADD TO shapeList
-    if shape.y >= WIN_HEIGHT - shape_face:        # hit-bottom  
+    # ADD (hit-bottom)
+    if max_y >= WIN_HEIGHT - shape_face:        
+        
+        delta = WIN_HEIGHT - (max_y + shape_face)     # adjust boxes in object 
+        for box in object: box.y += delta
+        for box in object: boxList.append(box)        # add boxes to boxList
         COLLISION_SOUND.play()
-        shape.y = WIN_HEIGHT - shape_face
-        print (shape.y)
-        shapeList.append(shape)
         create_new_shape = True
-    else:                                         # collision (with other shapes)
-        for shape_ in shapeList:
-            if shape_.colliderect(shape):
-                COLLISION_SOUND.play()
-                shape.y = shape_.y - shape_face
-                shapeList.append(shape)
-                create_new_shape = True 
-                break 
+    
+    # ADD (collided with boxes)
+    else:                     
+        
+        for box in object:
+            
+            collision = False 
+            for box_ in boxList: 
+
+                if box.colliderect(box_):
+                
+                    delta = box_.y - (box.y + shape_face)      # adjusting boxes in object 
+                    for box in object: box.y += delta
+                    for box in object: boxList.append(box)     # adding boxes to boxList
+                    COLLISION_SOUND.play()
+                    create_new_shape = True 
+                    collision = True 
+                    break 
+
+            if collision: break
+                
+
+                
 
     return create_new_shape

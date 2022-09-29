@@ -5,8 +5,8 @@ from gameSettings import *
 
 
 
-from grid import createGrid, drawGrid                   # grid 
-from objectList import drawList, removeRow, addObject
+from grid import createGrid, drawGrid                     # grid 
+from boxList import drawList, removeRow, addObject
 
 # object (types)
 from objectTypes import L_create, L_rotate
@@ -23,7 +23,7 @@ from objectsFunc import drawObject
 
 def game():
     
-    object = cube_create()    # CHOOSE OBJECT (2 options so far)
+    object = L_create()    # CHOOSE OBJECT (2 options so far)
     objectList = []
     gridGui = createGrid()
     clock = pygame.time.Clock()
@@ -51,7 +51,7 @@ def game():
         # NEW-SHAPE 
         if create_new_shape == True:
             create_new_shape = False 
-            object = cube_create()             # develop to all types of objects (not only cubes ...)
+            object = L_create()             # 2 options ... cube OR L 
             
 
         # HANDLE-SHAPES   
