@@ -1,6 +1,7 @@
 
 
 import pygame 
+import numpy as np
 import os
 
 
@@ -18,10 +19,10 @@ BLACK = (0,0,0)
 # GRID
 COL_NUM = 8  
 ROW_NUM = 12 
-box_face = WIN_WIDTH/COL_NUM
+BOX_FACE = WIN_WIDTH/COL_NUM
 
 # VELOCITY 
-SHAPE_VEL = 8
+SHAPE_VEL = 3
 
 # SOUNDS 
 pygame.mixer.init()

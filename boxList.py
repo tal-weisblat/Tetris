@@ -11,39 +11,36 @@ def drawList(boxList):
 
 
 # ------------------------------------- REMOVE ----------------------------------------------
-def removeRow(shapeList):
+def removeRow(boxList):
     
-    # STAGE-1 ; check rows 
-    rowFilled = True
-    y = 550
-    for x in [0,50,100,150,200,250,300,350]:
-        boxFilled = False
-        for shape in shapeList: 
-            #print (shape.y)
-            if shape.x == x and shape.y == y :
-                boxFilled = True 
-                break
-
-        if boxFilled == False :
-            rowFilled = False
-            break 
+    for y in np.arange(0, WIN_HEIGHT, BOX_FACE):
         
-    # STAGE-2 ; erase rows 
-    if rowFilled: 
-        y = 550
-        for x in [0,50,100,150,200,250,300,350]:
-            for shape in shapeList: 
-                if (shape.y == y and 
-                   (shape.x == 0 or shape.x == 50 or shape.x == 100 or shape.x == 150 or 
-                    shape.x == 200 or shape.x == 250 or shape.x == 300 or 
-                    shape.x == 350 )):
-                    LINEREMOVE_SOUND.play()
-                    shapeList.remove(shape)
+        # CHECK ROW 
+        rowFilled = True
+        for x in np.arange(0, WIN_WIDTH, BOX_FACE):
+            boxFilled = False
+            for box in boxList: 
+                if box.x == x and box.y == y:
+                    boxFilled = True 
+                    break
 
-    # STAGE-3 ; lower all rows above 
-    if rowFilled: 
-        for shape in shapeList: 
-            shape.y += 50
+            if boxFilled == False:
+                rowFilled = False
+                break 
+        
+        # REMOVE ROW 
+        if rowFilled: 
+            for x in np.arange(0, WIN_WIDTH, BOX_FACE):
+                for box in boxList: 
+                    if (box.y == y) and (box.x in  np.arange(0, WIN_WIDTH, BOX_FACE)): 
+                        boxList.remove(box)
+                        LINEREMOVE_SOUND.play()
+
+        # LOWER (ABOVE) ROWS 
+        if rowFilled: 
+            for box in boxList:
+                if box.y < y: 
+                    box.y += BOX_FACE
 
 
 
@@ -87,8 +84,6 @@ def addObject(object, boxList):
                     break 
 
             if collision: break
-                
-
                 
 
     return create_new_shape

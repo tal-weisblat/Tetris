@@ -2,6 +2,7 @@
 
 
 from gameSettings import *
+import random
 
 
 
@@ -48,11 +49,10 @@ def game():
         removeRow(objectList) 
 
 
-        # NEW-SHAPE 
+        # NEW-SHAPE (randomly chosen)
         if create_new_shape == True:
             create_new_shape = False 
-            object = L_create()             # 2 options ... cube OR L 
-            
+            object = random.choice([L_create(), cube_create()])
 
         # HANDLE-SHAPES   
         keys = pygame.key.get_pressed()

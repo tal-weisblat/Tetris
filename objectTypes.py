@@ -10,9 +10,9 @@ from gameSettings import *
 # -------------------------------------------- CREATE -------------------------------------------- 
 def cube_create():
     cube_object = []
-    x = 1*box_face            # make it random ? 
+    x = 1*BOX_FACE            # make it random ? 
     y = 0
-    box = pygame.Rect(x,y, box_face, box_face)
+    box = pygame.Rect(x,y, BOX_FACE, BOX_FACE)
     cube_object.append(box)
     return cube_object 
 
@@ -22,10 +22,10 @@ def cube_create():
 # ---------------------------------------------- L-shape (create) -----------------------------------------------
 def L_create():
     L_object = []
-    shape_1 = pygame.Rect(0,0, box_face, box_face)
-    shape_2 = pygame.Rect(0,50, box_face, box_face)
-    shape_3 = pygame.Rect(50,0, box_face, box_face)
-    shape_4 = pygame.Rect(100,0, box_face, box_face)
+    shape_1 = pygame.Rect(0,0, BOX_FACE, BOX_FACE)
+    shape_2 = pygame.Rect(0,50, BOX_FACE, BOX_FACE)
+    shape_3 = pygame.Rect(50,0, BOX_FACE, BOX_FACE)
+    shape_4 = pygame.Rect(100,0, BOX_FACE, BOX_FACE)
     L_object.append(shape_1)
     L_object.append(shape_2)
     L_object.append(shape_3)
@@ -60,10 +60,10 @@ def L_rotate(keys, space_pressed, complex_object):
         
         # inner boxes 
         y = complex_object[0].y
-        shape_1 = pygame.Rect(x1+min_x, y1+y, box_face, box_face)
-        shape_2 = pygame.Rect(x2+min_x, y2+y, box_face, box_face)
-        shape_3 = pygame.Rect(x3+min_x, y3+y, box_face, box_face)
-        shape_4 = pygame.Rect(x4+min_x, y4+y, box_face, box_face)
+        shape_1 = pygame.Rect(x1+min_x, y1+y, BOX_FACE, BOX_FACE)
+        shape_2 = pygame.Rect(x2+min_x, y2+y, BOX_FACE, BOX_FACE)
+        shape_3 = pygame.Rect(x3+min_x, y3+y, BOX_FACE, BOX_FACE)
+        shape_4 = pygame.Rect(x4+min_x, y4+y, BOX_FACE, BOX_FACE)
 
         # complex object (the union of boxes)
         complex_object.clear()
