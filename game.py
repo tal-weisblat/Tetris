@@ -1,19 +1,21 @@
 
 
 
-
 from gameSettings import *
 
 
-from components.grid import createGrid, drawGrid                 # grid 
-from components.shapeList import drawList, removeRow, addObject
-from objectTypes.L_object import L_create, L_rotate              # unique 
-from objectTypes.cube_object import cube_create
-from objectFunc.moveObject import moveObject               # common 
-from objectFunc.drawObject import draw
 
-# BUG: need to generalize to ALL objects 
-# from utility import createNewShape     
+from grid import createGrid, drawGrid                   # grid 
+from objectList import drawList, removeRow, addObject
+
+# object (types)
+from objectTypes import L_create, L_rotate
+from objectTypes import cube_create
+
+# common functions (of objects)
+from objectsFunc import moveObject               
+from objectsFunc import drawObject
+
 
 
 
@@ -21,14 +23,10 @@ from objectFunc.drawObject import draw
 
 def game():
     
-    # CHOOSE OBJECT (2 options so far)
-    object = cube_create()    
-
-
+    object = cube_create()    # CHOOSE OBJECT (2 options so far)
     objectList = []
     gridGui = createGrid()
     clock = pygame.time.Clock()
-    
     key_pressed = False 
     create_new_shape = False 
     space_pressed = False 
@@ -63,17 +61,15 @@ def game():
         space_pressed = L_rotate(keys, space_pressed, object)             # rotate
         if keys[pygame.K_SPACE] == False : space_pressed = False 
         
-        
-        # add object to list 
+        # ADD (object to list)
         create_new_shape = addObject(object, objectList)    
         
-        
-
+    
         # DRAW 
         WIN.fill(WHITE)
         drawGrid(gridGui)
         drawList(objectList)
-        draw(object)
+        drawObject(object)
         pygame.display.update()
 
 

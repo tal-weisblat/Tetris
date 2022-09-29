@@ -1,5 +1,14 @@
 
+
+
 from gameSettings import * 
+
+
+
+# ---------------------------------------- DRAW -------------------------------------------
+def drawObject(object):
+    for box in object:
+        pygame.draw.rect(WIN, BLACK, box)
 
 
 # ---------------------------------------- MOVE -------------------------------------------- 
@@ -9,15 +18,13 @@ def moveObject(keys, key_pressed, object, objectList):
     for box in object:
         box.y += SHAPE_VEL
 
-
     # restrictions (left & rigth)
     shape_face = WIN_WIDTH/COL_NUM
     max_x = max(box.x for box in object)
     min_x = min(box.x for box in object)
 
     # restrictions (regarding objects in objectList)
-    # right 
-    object_temp = [] 
+    object_temp = []                              # right 
     no_collision_right = True 
     for box in object: 
         box_temp = pygame.Rect(box.x, box.y, shape_face, shape_face)
@@ -28,8 +35,8 @@ def moveObject(keys, key_pressed, object, objectList):
         for box_temp in object_temp: 
             if box.colliderect(box_temp):
                 no_collision_right = False 
-    # left 
-    object_temp = [] 
+    
+    object_temp = []                               # left 
     no_collision_left = True 
     for box in object: 
         box_temp = pygame.Rect(box.x, box.y, shape_face, shape_face)
