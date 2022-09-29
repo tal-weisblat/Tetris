@@ -20,6 +20,27 @@ def cube_create():
 
 
 # ---------------------------------------------- L-shape (create) -----------------------------------------------
+
+
+class L_object():
+
+    def __init__ (self, color):
+
+        self.object = []
+        shape_1 = pygame.Rect(0,0, BOX_FACE, BOX_FACE)
+        shape_2 = pygame.Rect(0,50, BOX_FACE, BOX_FACE)
+        shape_3 = pygame.Rect(50,0, BOX_FACE, BOX_FACE)
+        shape_4 = pygame.Rect(100,0, BOX_FACE, BOX_FACE)
+        self.object.append(shape_1)
+        self.object.append(shape_2)
+        self.object.append(shape_3)
+        self.object.append(shape_4)
+
+        self.color = color 
+
+    
+
+
 def L_create():
     L_object = []
     shape_1 = pygame.Rect(0,0, BOX_FACE, BOX_FACE)

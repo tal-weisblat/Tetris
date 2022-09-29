@@ -10,7 +10,7 @@ from grid import createGrid, drawGrid                     # grid
 from boxList import drawList, removeRow, addObject
 
 # object (types)
-from objectTypes import L_create, L_rotate
+from objectTypes import L_create, L_object, L_rotate
 from objectTypes import cube_create
 
 # common functions (of objects)
@@ -24,7 +24,9 @@ from objectsFunc import drawObject
 
 def game():
     
-    object = L_create()    # CHOOSE OBJECT (2 options so far)
+    object = L_create()     # 2 options so far ... 
+    #object = L_object()    # clases ... 
+
     objectList = []
     gridGui = createGrid()
     clock = pygame.time.Clock()
@@ -49,7 +51,7 @@ def game():
         removeRow(objectList) 
 
 
-        # NEW-SHAPE (randomly chosen)
+        # NEW-SHAPE (randomly)
         if create_new_shape == True:
             create_new_shape = False 
             object = random.choice([L_create(), cube_create()])
@@ -68,8 +70,8 @@ def game():
         # DRAW 
         WIN.fill(WHITE)
         drawGrid(gridGui)
-        drawList(objectList)
-        drawObject(object)
+        drawList(objectList)           # different colors ? 
+        drawObject(object)             # different colors ? 
         pygame.display.update()
 
 
