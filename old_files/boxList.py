@@ -13,11 +13,11 @@ def drawList(boxList):
 # ------------------------------------- REMOVE ----------------------------------------------
 def removeRow(boxList):
     
-    for y in np.arange(0, WIN_HEIGHT, BOX_FACE):
+    for y in np.arange(0, WIN_HEIGHT, CUBE_FACE):
         
         # CHECK ROW 
         rowFilled = True
-        for x in np.arange(0, WIN_WIDTH, BOX_FACE):
+        for x in np.arange(0, WIN_WIDTH, CUBE_FACE):
             boxFilled = False
             for box in boxList: 
                 if box.x == x and box.y == y:
@@ -30,9 +30,9 @@ def removeRow(boxList):
         
         # REMOVE ROW 
         if rowFilled: 
-            for x in np.arange(0, WIN_WIDTH, BOX_FACE):
+            for x in np.arange(0, WIN_WIDTH, CUBE_FACE):
                 for box in boxList: 
-                    if (box.y == y) and (box.x in  np.arange(0, WIN_WIDTH, BOX_FACE)): 
+                    if (box.y == y) and (box.x in  np.arange(0, WIN_WIDTH, CUBE_FACE)): 
                         boxList.remove(box)
                         LINEREMOVE_SOUND.play()
 
@@ -40,7 +40,7 @@ def removeRow(boxList):
         if rowFilled: 
             for box in boxList:
                 if box.y < y: 
-                    box.y += BOX_FACE
+                    box.y += CUBE_FACE
 
 
 
@@ -54,9 +54,9 @@ def addObject(object, boxList):
 
     
     # ADD (hit-bottom)
-    if max_y >= WIN_HEIGHT - BOX_FACE:        
+    if max_y >= WIN_HEIGHT - CUBE_FACE:        
         
-        delta = WIN_HEIGHT - (max_y + BOX_FACE)     # adjust boxes in object 
+        delta = WIN_HEIGHT - (max_y + CUBE_FACE)     # adjust boxes in object 
         for box in object: box.y += delta
         for box in object: boxList.append(box)        # add boxes to boxList
         COLLISION_SOUND.play()
@@ -72,7 +72,7 @@ def addObject(object, boxList):
 
                 if box.colliderect(box_):
                 
-                    delta = box_.y - (box.y + BOX_FACE)      # adjusting boxes in object 
+                    delta = box_.y - (box.y + CUBE_FACE)      # adjusting boxes in object 
                     for box in object: box.y += delta
                     for box in object: boxList.append(box)     # adding boxes to boxList
                     COLLISION_SOUND.play()

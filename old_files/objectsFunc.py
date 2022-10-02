@@ -7,6 +7,10 @@ from gameSettings import *
 
 # ---------------------------------------- DRAW -------------------------------------------
 def drawObject(object):
+
+    ''' 
+    Draw all boxes within object 
+    '''
     for box in object:
         pygame.draw.rect(WIN, BLACK, box)
 
