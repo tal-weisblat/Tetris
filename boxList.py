@@ -49,17 +49,14 @@ def removeRow(boxList):
 # ------------------------------------- ADD ---------------------------------------------- 
 def addObject(object, boxList):
     
-
     max_y = max(box.y for box in object)
-
-
     create_new_shape = False  
-    shape_face = WIN_WIDTH/COL_NUM
+
     
     # ADD (hit-bottom)
-    if max_y >= WIN_HEIGHT - shape_face:        
+    if max_y >= WIN_HEIGHT - BOX_FACE:        
         
-        delta = WIN_HEIGHT - (max_y + shape_face)     # adjust boxes in object 
+        delta = WIN_HEIGHT - (max_y + BOX_FACE)     # adjust boxes in object 
         for box in object: box.y += delta
         for box in object: boxList.append(box)        # add boxes to boxList
         COLLISION_SOUND.play()
@@ -75,7 +72,7 @@ def addObject(object, boxList):
 
                 if box.colliderect(box_):
                 
-                    delta = box_.y - (box.y + shape_face)      # adjusting boxes in object 
+                    delta = box_.y - (box.y + BOX_FACE)      # adjusting boxes in object 
                     for box in object: box.y += delta
                     for box in object: boxList.append(box)     # adding boxes to boxList
                     COLLISION_SOUND.play()
