@@ -3,14 +3,6 @@ from gameSettings import *
 
 
 
-
-
-
-
-
-
-
-
 class cube():
     
     def __init__(self, color):
@@ -21,8 +13,6 @@ class cube():
         
     def draw(self):
         pygame.draw.rect(WIN, self.color, self.cube)
-
-
 
     def moveCube(self, keys, key_pressed, cubeList):
         
@@ -48,11 +38,21 @@ class cube():
                 left_collision = True  
 
         # right & left 
-        if (keys[pygame.K_RIGHT]) and (key_pressed == False) and (self.x + BOX_FACE < WIN_WIDTH) and (self.cube.x + BOX_FACE < WIN_WIDTH) and (right_collision == False): 
+        if ( (keys[pygame.K_RIGHT]) and  
+             (key_pressed == False) and 
+             (self.x + BOX_FACE < WIN_WIDTH) and 
+             (self.cube.x + BOX_FACE < WIN_WIDTH) and 
+             (right_collision == False)): 
+
             key_pressed = True 
             self.cube.x += BOX_FACE
             
-        if keys[pygame.K_LEFT] and (key_pressed == False) and (self.x > 0) and (self.cube.x > 0) and (left_collision == False): 
+        if ( (keys[pygame.K_LEFT]) and 
+             (key_pressed == False) and 
+             (self.x > 0) and 
+             (self.cube.x > 0) and 
+             (left_collision == False)): 
+             
             key_pressed = True 
             self.cube.x -= BOX_FACE
             
