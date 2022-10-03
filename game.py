@@ -9,17 +9,17 @@ import random
 from grid import createGrid, drawGrid    
 
 
-from classCube import cube
-from cubeList import addCube, drawCubeList, removeRow
+#from classCube import cube
+from cubeList import addCube, drawCubeList, removeRows
 from classCubeShape import CubeShape
 
 
 
 def game():
     
-    cube_shape = CubeShape(RED)    # 2 options so... 
+    new_shape = CubeShape(RED)    # 2 options so... 
     cubeList = []
-    gridGui = createGrid()
+    grid = createGrid()
     clock = pygame.time.Clock()
     key_pressed = False 
     create_new_shape = False 
@@ -37,29 +37,33 @@ def game():
                 break
             
 
-        # new-cube  
+        # new-shape  
         if create_new_shape == True:
             create_new_shape = False 
-            cube_shape = CubeShape(random.choice([RED,BLACK]))
+            new_shape = CubeShape(random.choice([RED,BLACK]))
     
 
-        # move cube 
+        # move-downwards 
         keys = pygame.key.get_pressed()
-        key_pressed = cube_shape.moveCubeShape(keys, key_pressed, cubeList)   # move 
+        key_pressed = new_shape.moveShape(keys, key_pressed, cubeList)   # move 
         if (keys[pygame.K_LEFT] == False) and (keys[pygame.K_RIGHT] == False): key_pressed = False
         
+        # rotate 
+        space_pressed = new_shape.rotate(keys, space_pressed)
+        if (keys[pygame.K_SPACE] == False): space_pressed = False
 
-        # BUG :  add cube 
-        create_new_shape = addCube(cubeList, cube_shape)
+
+        # add cubes to cubeList
+        create_new_shape = addCube(cubeList, new_shape)
 
         # remove row 
-        removeRow(cubeList)
+        removeRows(cubeList)
 
 
         # draw  
         WIN.fill(WHITE)
-        drawGrid(gridGui)
-        cube_shape.drawCubeShape()
+        drawGrid(grid)
+        new_shape.drawShape()
         drawCubeList(cubeList)        
         pygame.display.update()
 

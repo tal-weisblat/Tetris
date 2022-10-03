@@ -1,38 +1,49 @@
 
 
 from gameSettings import * 
-from classCube import cube
+from classCube import Cube
 
 
 # ------------------------------------- DRAW ----------------------------------------------
 def drawCubeList(cubeList):
-    for cube_shape in cubeList:
-        pygame.draw.rect(WIN, cube_shape.color, cube_shape.list[0])        
+    for shape in cubeList:
+        pygame.draw.rect(WIN, shape.color, shape.cube)        
 
 
 # ------------------------------------- ADD -----------------------------------------------
-def addCube(cubeList, cube_shape):
+def addCube(cubeList, new_shape):
     
     create_new_shape = False  
 
+
+    # max_y = .... 
+
     # hit bottom
-    if cube_shape.list[0].y  >= WIN_HEIGHT - CUBE_FACE:    
+    if new_shape.listOfCubes[0].y  >= WIN_HEIGHT - CUBE_FACE:    
         
-        delta = WIN_HEIGHT - (cube_shape.list[0].y + CUBE_FACE)     # adjust cube 
-        cube_shape.list[0].y += delta
+        delta = WIN_HEIGHT - (new_shape.listOfCubes[0].y + CUBE_FACE)     # adjust cube 
+        new_shape.listOfCubes[0].y += delta          # MODIFY : adjusting ALL cubes within new_shape 
         
-        print(cube_shape.list[0].x, cube_shape.list[0].y)
-
-
-        cubeList.append(cube_shape)        
+        # ADD all cubes to cubeList 
+        for cube in new_shape.listOfCubes:
+            temp_cube = Cube(cube.x, cube.y, new_shape.color)
+            cubeList.append(temp_cube) 
+        
         create_new_shape = True
         COLLISION_SOUND.play()
         
     else: 
-        for cube_in_list in cubeList:
-            if cube_in_list.list[0].colliderect(cube_shape.list[0]):
-                cube_shape.list[0].y = cube_in_list.list[0].y - CUBE_FACE 
-                cubeList.append(cube_shape)
+        for shape in cubeList:
+            
+            if shape.cube.colliderect(new_shape.listOfCubes[0]):
+                
+                new_shape.listOfCubes[0].y = shape.cube.y - CUBE_FACE  # MODIFY : adjusting ALL cubes within new_shape 
+        
+                # ADD all cubes to cubeList
+                for cube in new_shape.listOfCubes:
+                    temp_cube = Cube(cube.x, cube.y, new_shape.color)
+                    cubeList.append(temp_cube)
+                
                 create_new_shape = True
                 COLLISION_SOUND.play()
                 break
@@ -41,9 +52,10 @@ def addCube(cubeList, cube_shape):
 
 
 
+
+
 # ------------------------------------- REMOVE-ROW -------------------------------------------
-    
-def removeRow(cubeList): 
+def removeRows(cubeList): 
     for y in np.arange(0, WIN_HEIGHT, CUBE_FACE):
         
         # check row 
@@ -51,7 +63,7 @@ def removeRow(cubeList):
         for x in np.arange(0, WIN_WIDTH, CUBE_FACE):
             boxFilled = False
             for cube_shape in cubeList: 
-                if cube_shape.list[0].x == x and cube_shape.list[0].y == y:
+                if cube_shape.cube.x == x and cube_shape.cube.y == y:
                     boxFilled = True 
                     break
 
@@ -63,15 +75,15 @@ def removeRow(cubeList):
         if rowFilled: 
             for x in np.arange(0, WIN_WIDTH, CUBE_FACE):
                 for cube_shape in cubeList: 
-                    if (cube_shape.list[0].y == y) and (cube_shape.list[0].x in  np.arange(0, WIN_WIDTH, CUBE_FACE)): 
+                    if (cube_shape.cube.y == y) and (cube_shape.cube.x in  np.arange(0, WIN_WIDTH, CUBE_FACE)): 
                         cubeList.remove(cube_shape)
                         LINEREMOVE_SOUND.play()
 
         # lower above rows
         if rowFilled: 
             for cube_in_list in cubeList:
-                if cube_in_list.list[0].y < y: 
-                    cube_in_list.list[0].y += CUBE_FACE
+                if cube_in_list.cube.y < y: 
+                    cube_in_list.cube.y += CUBE_FACE
 
 
 
