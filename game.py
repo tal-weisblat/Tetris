@@ -7,18 +7,25 @@ import random
 
 
 from grid import createGrid, drawGrid    
-
-
-#from classCube import cube
 from cubeList import addCube, drawCubeList, removeRows
 from classCubeShape import CubeShape
 from classLshape import Lshape
 
 
 
+def draw(grid, new_shape, cubeList):
+    WIN.fill(WHITE)
+    drawGrid(grid)
+    new_shape.drawShape()
+    drawCubeList(cubeList)        
+    pygame.display.update()
+
+
+
+
 def game():
     
-    new_shape = CubeShape(RED) 
+    new_shape = Lshape(BLACK) 
     cubeList = []
     grid = createGrid()
     clock = pygame.time.Clock()
@@ -60,14 +67,8 @@ def game():
         # remove row 
         removeRows(cubeList)
 
-
-        # draw  
-        WIN.fill(WHITE)
-        drawGrid(grid)
-        new_shape.drawShape()
-        drawCubeList(cubeList)        
-        pygame.display.update()
-
+        # draw 
+        draw(grid, new_shape, cubeList)
 
 game()
 

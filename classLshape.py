@@ -26,6 +26,28 @@ class Lshape():
             pygame.draw.rect(WIN, self.color, cube)
 
 
+    
+    def __collision_with_cubeList__(self, cubeList, label):
+        
+        BOX_FACE = WIN_WIDTH/COL_NUM
+        
+        # right 
+        temp_shape = []                              
+        no_collision = True 
+        for cube in self.listOfCubes: 
+            temp_cube = pygame.Rect(cube.x, cube.y, BOX_FACE, BOX_FACE)
+            if label == 'right': temp_cube.x += BOX_FACE
+            if label == 'left' : temp_cube.x -= BOX_FACE
+            temp_shape.append(temp_cube)
+
+        for cube_list in cubeList:
+            for temp_cube in temp_shape: 
+                if cube_list.cube.colliderect(temp_cube):
+                    no_collision = False 
+
+        return no_collision
+
+
     def moveShape(self, keys, key_pressed, cubeList):
 
         BOX_FACE = WIN_WIDTH/COL_NUM
@@ -35,18 +57,23 @@ class Lshape():
         
         x_max = max(box.x for box in self.listOfCubes)
         x_min = min(box.x for box in self.listOfCubes)
-
-        # right & left 
-        if ( (keys[pygame.K_RIGHT]) and  
-             (key_pressed == False) and 
-             (x_max + BOX_FACE < WIN_WIDTH)): 
+        no_collision_right = self.__collision_with_cubeList__(cubeList, 'right')
+        no_collision_left  = self.__collision_with_cubeList__(cubeList, 'left')
+        
+        # right         
+        if ( (keys[pygame.K_RIGHT])         and  
+             (key_pressed == False)         and 
+             (x_max + BOX_FACE < WIN_WIDTH) and 
+             (no_collision_right)): 
              
             key_pressed = True 
             for box in self.listOfCubes: box.x += BOX_FACE    
-            
+        
+        # left 
         if ( (keys[pygame.K_LEFT]) and 
              (key_pressed == False) and 
-             (x_min > 0)): 
+             (x_min > 0) and 
+             (no_collision_left)): 
              
             key_pressed = True 
             for box in self.listOfCubes: box.x -= BOX_FACE    

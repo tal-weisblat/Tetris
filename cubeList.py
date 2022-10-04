@@ -13,12 +13,7 @@ def drawCubeList(cubeList):
 # ------------------------------------- ADD -----------------------------------------------
 def addCube(cubeList, new_shape):
 
-
-    # TODO : adjust function to fit L-Shape as well (not only cubeClass)
-
     create_new_shape = False  
-
-
 
     # hit bottom
     max_y = max(cube.y for cube in new_shape.listOfCubes)
