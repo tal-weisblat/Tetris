@@ -23,7 +23,7 @@ ROW_NUM = 12
 CUBE_FACE = WIN_WIDTH/COL_NUM
 
 # VELOCITY 
-SHAPE_VEL = 6
+SHAPE_VEL = 4
 
 # SOUNDS 
 pygame.mixer.init()

@@ -12,19 +12,23 @@ def drawCubeList(cubeList):
 
 # ------------------------------------- ADD -----------------------------------------------
 def addCube(cubeList, new_shape):
-    
+
+
+    # TODO : adjust function to fit L-Shape as well (not only cubeClass)
+
     create_new_shape = False  
 
 
-    # max_y = .... 
 
     # hit bottom
-    if new_shape.listOfCubes[0].y  >= WIN_HEIGHT - CUBE_FACE:    
+    max_y = max(cube.y for cube in new_shape.listOfCubes)
+    if max_y  >= WIN_HEIGHT - CUBE_FACE:    
+            
+        # adjust cubes within new_shape
+        delta = WIN_HEIGHT - (max_y + CUBE_FACE)    
+        for cube in new_shape.listOfCubes: cube.y += delta
         
-        delta = WIN_HEIGHT - (new_shape.listOfCubes[0].y + CUBE_FACE)     # adjust cube 
-        new_shape.listOfCubes[0].y += delta          # MODIFY : adjusting ALL cubes within new_shape 
-        
-        # ADD all cubes to cubeList 
+        # add cubes to cubeList 
         for cube in new_shape.listOfCubes:
             temp_cube = Cube(cube.x, cube.y, new_shape.color)
             cubeList.append(temp_cube) 
@@ -33,21 +37,31 @@ def addCube(cubeList, new_shape):
         COLLISION_SOUND.play()
         
     else: 
-        for shape in cubeList:
+
+        for new_cube in new_shape.listOfCubes:
             
-            if shape.cube.colliderect(new_shape.listOfCubes[0]):
+            collision = False 
+            for cube_list in cubeList: 
+
+                # collision 
+                if new_cube.colliderect(cube_list.cube):
                 
-                new_shape.listOfCubes[0].y = shape.cube.y - CUBE_FACE  # MODIFY : adjusting ALL cubes within new_shape 
-        
-                # ADD all cubes to cubeList
-                for cube in new_shape.listOfCubes:
-                    temp_cube = Cube(cube.x, cube.y, new_shape.color)
-                    cubeList.append(temp_cube)
-                
-                create_new_shape = True
-                COLLISION_SOUND.play()
-                break
-    
+                    # adjust cubes in new_shape 
+                    delta = cube_list.cube.y - (new_cube.y + CUBE_FACE)      
+                    for new_cube in new_shape.listOfCubes: new_cube.y += delta
+                    
+                    # add new_cubes to cubeList 
+                    for new_cube in new_shape.listOfCubes:        
+                        temp_cube = Cube(new_cube.x, new_cube.y, new_shape.color)
+                        cubeList.append(temp_cube)     
+
+                    COLLISION_SOUND.play()
+                    create_new_shape = True 
+                    collision = True 
+                    break 
+
+            if collision: break
+
     return create_new_shape
 
 
