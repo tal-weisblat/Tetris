@@ -31,16 +31,19 @@ def addCube(cubeList, new_shape):
         create_new_shape = True
         COLLISION_SOUND.play()
         
+    # hit cubes in cubeList 
     else: 
-
-        for new_cube in new_shape.listOfCubes:
-            
+        for new_cube in new_shape.listOfCubes:  
             collision = False 
             for cube_list in cubeList: 
 
                 # collision 
                 if new_cube.colliderect(cube_list.cube):
                 
+                    # game-over (event) 
+                    if cube_list.cube.y <= 0: 
+                        pygame.event.post(pygame.event.Event(GAMEOVER))
+                        
                     # adjust cubes in new_shape 
                     delta = cube_list.cube.y - (new_cube.y + CUBE_FACE)      
                     for new_cube in new_shape.listOfCubes: new_cube.y += delta

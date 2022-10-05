@@ -17,6 +17,7 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 RED   = (255,0,0)
 MAROON = (128,0,0)
+GREEN = (51,51,0)
 
 
 # GRID
@@ -31,3 +32,7 @@ SHAPE_VEL = 4
 pygame.mixer.init()
 COLLISION_SOUND = pygame.mixer.Sound(os.path.join('files/sounds', 'tick.mp3'))
 LINEREMOVE_SOUND = pygame.mixer.Sound(os.path.join('files/sounds','line_removal_2.wav'))
+
+
+# EVENTS 
+GAMEOVER = pygame.USEREVENT + 1 

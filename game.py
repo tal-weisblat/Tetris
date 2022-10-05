@@ -11,6 +11,7 @@ from cubeList import addCube, drawCubeList, removeRows
 from classCubeShape import CubeShape
 from classLshape import Lshape
 from classLineShape import LineShape
+from classShortLineShape import ShortLineShape
 
 
 
@@ -24,14 +25,16 @@ def draw(grid, new_shape, cubeList):
 
 def game():
     
-    new_shape = LineShape(MAROON) 
+    new_shape = ShortLineShape(GREEN) 
     cubeList = []
     grid = createGrid()
     clock = pygame.time.Clock()
     key_pressed = False 
     create_new_shape = False 
     space_pressed = False 
+    game_over = False 
     run = True 
+
 
     while run: 
 
@@ -39,15 +42,20 @@ def game():
 
         # events 
         for event in pygame.event.get():
+            
             if event.type == pygame.QUIT:
                 run = False 
                 break
             
+            if event.type == GAMEOVER:
+                game_over = True 
+                break
+
 
         # new-shape  
         if create_new_shape == True:
             create_new_shape = False 
-            new_shape =random.choice([Lshape(BLACK),CubeShape(RED),LineShape(MAROON)]) 
+            new_shape =random.choice([Lshape(BLACK),CubeShape(RED),LineShape(MAROON),ShortLineShape(GREEN) ]) 
     
 
         # move-downwards 
@@ -65,6 +73,10 @@ def game():
 
         # remove row 
         removeRows(cubeList)
+
+
+        if game_over: 
+            print ('GAME OVER')
 
         # draw 
         draw(grid, new_shape, cubeList)
