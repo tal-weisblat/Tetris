@@ -10,6 +10,7 @@ from grid import createGrid, drawGrid
 from cubeList import addCube, drawCubeList, removeRows
 from classCubeShape import CubeShape
 from classLshape import Lshape
+from classLineShape import LineShape
 
 
 
@@ -21,11 +22,9 @@ def draw(grid, new_shape, cubeList):
     pygame.display.update()
 
 
-
-
 def game():
     
-    new_shape = Lshape(BLACK) 
+    new_shape = LineShape(MAROON) 
     cubeList = []
     grid = createGrid()
     clock = pygame.time.Clock()
@@ -48,7 +47,7 @@ def game():
         # new-shape  
         if create_new_shape == True:
             create_new_shape = False 
-            new_shape =random.choice([Lshape(BLACK),CubeShape(RED)]) 
+            new_shape =random.choice([Lshape(BLACK),CubeShape(RED),LineShape(MAROON)]) 
     
 
         # move-downwards 
