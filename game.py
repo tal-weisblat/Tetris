@@ -12,7 +12,7 @@ from classCubeShape import CubeShape
 from classLshape import Lshape
 from classLineShape import LineShape
 from classShortLineShape import ShortLineShape
-
+from classFatCubeShape import FatCubeShape
 
 
 def draw(grid, new_shape, cubeList):
@@ -25,7 +25,7 @@ def draw(grid, new_shape, cubeList):
 
 def game():
     
-    new_shape = ShortLineShape(GREEN) 
+    new_shape = FatCubeShape(GREY)
     cubeList = []
     grid = createGrid()
     clock = pygame.time.Clock()
@@ -55,7 +55,7 @@ def game():
         # new-shape  
         if create_new_shape == True:
             create_new_shape = False 
-            new_shape =random.choice([Lshape(BLACK),CubeShape(RED),LineShape(MAROON),ShortLineShape(GREEN) ]) 
+            new_shape =random.choice([Lshape(BLACK),CubeShape(RED),LineShape(MAROON),ShortLineShape(GREEN), FatCubeShape(GREY)]) 
     
 
         # move-downwards 

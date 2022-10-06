@@ -65,6 +65,4 @@ class CubeShape():
 
     def rotate(self, keys, space_pressed):
         if ( keys[pygame.K_SPACE] and space_pressed == False):  
-            space_pressed = True
-            print ('space')
-            
+            pass

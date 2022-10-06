@@ -18,7 +18,7 @@ BLACK = (0,0,0)
 RED   = (255,0,0)
 MAROON = (128,0,0)
 GREEN = (51,51,0)
-
+GREY = (105,105,105)
 
 # GRID
 COL_NUM = 8  
