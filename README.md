@@ -27,6 +27,8 @@ git clone ```https://github.com/tal-weisblat/Tetris.git```
 
 * Space bar -> Rotate the peice 
 
+* P button --> pause/continue game 
+
 
 
 <!-- Down arrow -> Drop the piece -->
