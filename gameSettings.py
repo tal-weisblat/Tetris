@@ -2,6 +2,7 @@
 
 import pygame 
 import numpy as np
+import random
 import os
 
 
@@ -42,21 +43,27 @@ COLLISION_SOUND = pygame.mixer.Sound(os.path.join('files/sounds', 'tick.mp3'))
 LINEREMOVE_SOUND = pygame.mixer.Sound(os.path.join('files/sounds','line_removal_2.wav'))
 
 # EVENTS 
-GAMEOVER = pygame.USEREVENT + 1 
+GAMEOVER   = pygame.USEREVENT + 1 
+ROWREMOVED = pygame.USEREVENT + 2 
 
 
 # FONTS 
 TETRIS_FONT    = pygame.font.SysFont('comicsans', 60)   
-NEXTSHAPE_FONT = pygame.font.SysFont('comicsans', 30)   
+NEXTSHAPE_FONT = pygame.font.SysFont('comicsans', 20)
+LINESREMOVED   = pygame.font.SysFont('comicsans', 20)   
 
 
 # TEXTS
-tetris_txt    = TETRIS_FONT.render('Tetris',1, BLACK)  
-nextShape_txt = NEXTSHAPE_FONT.render('Next shape:',1, BLACK)  
-
+tetris_txt     = TETRIS_FONT.render('Tetris',1, BLACK)  
+nextShape_txt  = NEXTSHAPE_FONT.render('Next shape:',1, BLACK)  
+def numOfLines_txt(numRowsRemoved):
+  return LINESREMOVED.render('Number of rows:  ' + str (numRowsRemoved), 1, BLACK)  
 
 # COORDINATES
 GAP = 10 
-(tetris_txt_x,tetris_txt_y)        = (GRID_WIDTH + (WIN_WIDTH - GRID_WIDTH)/2  - tetris_txt.get_width()/2, GAP)
-(nextShape_txt_x, nextShape_txt_y) = (GRID_WIDTH + (WIN_WIDTH - GRID_WIDTH)/2  - nextShape_txt.get_width()/2 - 4*GAP, tetris_txt.get_height() + 5*GAP) 
-(drawNextShape_x,drawNextShape_y)  = (GRID_WIDTH, nextShape_txt_y + 7*GAP)
+MIDDLE = GRID_WIDTH + (WIN_WIDTH - GRID_WIDTH)/2  - tetris_txt.get_width()/2
+LEFT   = GRID_WIDTH
+(tetris_txt_x, tetris_txt_y)         = (MIDDLE      , 1*GAP)
+(nextShape_txt_x, nextShape_txt_y)   = (LEFT + 2*GAP, 15*GAP) 
+(drawNextShape_x, drawNextShape_y)   = (LEFT        , 23*GAP)
+(numOfLines_txt_x, numOfLines_txt_y) = (LEFT + 2*GAP, 36*GAP) 

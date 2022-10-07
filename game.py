@@ -2,7 +2,7 @@
 
 
 from gameSettings import *
-import random
+
 
 
 
@@ -16,8 +16,8 @@ from classFatCubeShape import FatCubeShape
 
 
 
-# TODO: need to finish
-def drawNextShape(next_shape):
+
+def drawConsoleNextShape(next_shape):
 
     # duplicate 
     next_shape_temp = [] 
@@ -37,13 +37,13 @@ def drawNextShape(next_shape):
 
 
 
-def draw(grid, new_shape, cubeList,next_shape):
+def draw(grid, new_shape, cubeList, next_shape, numRowsRemoved):
     WIN.fill(CREEM)
-    WIN.blit ( tetris_txt, (tetris_txt_x,tetris_txt_y))
-    WIN.blit ( nextShape_txt, (nextShape_txt_x,nextShape_txt_y))
-
-    # TODO: need to finish ... 
-    drawNextShape(next_shape)
+    WIN.blit(tetris_txt, (tetris_txt_x,tetris_txt_y))
+    WIN.blit(nextShape_txt, (nextShape_txt_x,nextShape_txt_y))
+    WIN.blit(numOfLines_txt(numRowsRemoved), (numOfLines_txt_x, numOfLines_txt_y))
+    
+    drawConsoleNextShape(next_shape)
 
     drawGrid(grid)
     new_shape.drawShape()
@@ -71,6 +71,7 @@ def game():
     cubeList = []
     grid = createGrid()
     clock = pygame.time.Clock()
+    numRowsRemoved = 0 
     key_pressed = False 
     create_new_shape = True 
     space_pressed = False 
@@ -94,7 +95,11 @@ def game():
                 game_over = True 
                 break
 
-            
+            if event.type == ROWREMOVED: 
+                numRowsRemoved += 1 
+                
+
+
         # new & next shapes  
         if create_new_shape == True:
             create_new_shape = False
@@ -106,18 +111,16 @@ def game():
                                         FatCubeShape(GREY)])  
     
 
-        # TODO : need to finish ... 
-        drawNextShape(next_shape)
 
-
-
+        drawConsoleNextShape(next_shape)
 
         keys = pygame.key.get_pressed()
+
 
         # pause-game 
         pause_game, K_p_pressed = p_button_pressed(keys, pause_game, K_p_pressed)
         if pause_game:         
-            draw(grid, new_shape, cubeList, next_shape)
+            draw(grid, new_shape, cubeList, next_shape, numRowsRemoved)
             continue 
 
         # move-downwards 
@@ -140,7 +143,7 @@ def game():
             print ('GAME OVER')
 
         # draw 
-        draw(grid, new_shape, cubeList, next_shape)
+        draw(grid, new_shape, cubeList, next_shape, numRowsRemoved)
 
 game()
 

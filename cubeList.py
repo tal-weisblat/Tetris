@@ -85,6 +85,7 @@ def removeRows(cubeList):
         
         # remove-row
         if rowFilled: 
+            pygame.event.post(pygame.event.Event(ROWREMOVED))
             for x in np.arange(0, GRID_WIDTH, CUBE_FACE):
                 for cube_shape in cubeList: 
                     if (cube_shape.cube.y == y) and (cube_shape.cube.x in  np.arange(0, GRID_WIDTH, CUBE_FACE)): 
