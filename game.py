@@ -15,10 +15,36 @@ from classShortLineShape import ShortLineShape
 from classFatCubeShape import FatCubeShape
 
 
-def draw(grid, new_shape, cubeList):
+
+# TODO: need to finish
+def drawNextShape(next_shape):
+
+    # duplicate 
+    next_shape_temp = [] 
+    for cube in next_shape.listOfCubes:
+        cube_temp = pygame.Rect(cube.x, cube.y, CUBE_FACE, CUBE_FACE)    
+        next_shape_temp.append(cube_temp)
+    color = next_shape.color
+    
+    # set on screen 
+    for cube_temp in next_shape_temp:
+        cube_temp.x += drawNextShape_x
+        cube_temp.y += drawNextShape_y
+
+    # draw
+    for cube_temp in next_shape_temp:
+        pygame.draw.rect(WIN, color, cube_temp)
+
+
+
+def draw(grid, new_shape, cubeList,next_shape):
     WIN.fill(CREEM)
     WIN.blit ( tetris_txt, (tetris_txt_x,tetris_txt_y))
     WIN.blit ( nextShape_txt, (nextShape_txt_x,nextShape_txt_y))
+
+    # TODO: need to finish ... 
+    drawNextShape(next_shape)
+
     drawGrid(grid)
     new_shape.drawShape()
     drawCubeList(cubeList)        
@@ -41,18 +67,17 @@ def p_button_pressed(keys, pause_game, K_p_pressed):
 
 def game():
     
-    new_shape = FatCubeShape(GREY)
+    next_shape = FatCubeShape(GREY)
     cubeList = []
     grid = createGrid()
     clock = pygame.time.Clock()
     key_pressed = False 
-    create_new_shape = False 
+    create_new_shape = True 
     space_pressed = False 
     K_p_pressed = False 
     game_over = False 
     pause_game = False 
     run = True 
-
 
     while run: 
 
@@ -70,23 +95,29 @@ def game():
                 break
 
             
-
-        # new-shape  
+        # new & next shapes  
         if create_new_shape == True:
-            create_new_shape = False 
-            new_shape =random.choice([Lshape(BLACK),
-                                      CubeShape(RED),
-                                      LineShape(MAROON),
-                                      ShortLineShape(GREEN), 
-                                      FatCubeShape(GREY)]) 
+            create_new_shape = False
+            new_shape  = next_shape
+            next_shape = random.choice([Lshape(BLACK),
+                                        CubeShape(RED),
+                                        LineShape(MAROON),
+                                        ShortLineShape(GREEN), 
+                                        FatCubeShape(GREY)])  
     
+
+        # TODO : need to finish ... 
+        drawNextShape(next_shape)
+
+
+
 
         keys = pygame.key.get_pressed()
 
         # pause-game 
         pause_game, K_p_pressed = p_button_pressed(keys, pause_game, K_p_pressed)
         if pause_game:         
-            draw(grid, new_shape, cubeList)
+            draw(grid, new_shape, cubeList, next_shape)
             continue 
 
         # move-downwards 
@@ -109,7 +140,7 @@ def game():
             print ('GAME OVER')
 
         # draw 
-        draw(grid, new_shape, cubeList)
+        draw(grid, new_shape, cubeList, next_shape)
 
 game()
 

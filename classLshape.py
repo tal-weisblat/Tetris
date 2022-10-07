@@ -11,10 +11,10 @@ class Lshape():
         self.color = color 
         self.listOfCubes = []
 
-        cube_1 = pygame.Rect(0,0, CUBE_FACE, CUBE_FACE)
-        cube_2 = pygame.Rect(0,50, CUBE_FACE, CUBE_FACE)
-        cube_3 = pygame.Rect(50,0, CUBE_FACE, CUBE_FACE)
-        cube_4 = pygame.Rect(100,0, CUBE_FACE, CUBE_FACE)
+        cube_1 = pygame.Rect(1*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
+        cube_2 = pygame.Rect(1*CUBE_FACE,50, CUBE_FACE, CUBE_FACE)
+        cube_3 = pygame.Rect(2*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
+        cube_4 = pygame.Rect(3*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
         self.listOfCubes.append(cube_1)
         self.listOfCubes.append(cube_2)
         self.listOfCubes.append(cube_3)
