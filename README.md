@@ -1,9 +1,7 @@
 # Tetris Game
 
-Game not finished yet. \
-On progress ... 
 
-![A demonstration of the snake game](files/images/game_recording.gif) 
+![A demonstration of the snake game](files/images/game_record.gif) 
 
 
 
