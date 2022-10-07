@@ -16,7 +16,8 @@ from classFatCubeShape import FatCubeShape
 
 
 def draw(grid, new_shape, cubeList):
-    WIN.fill(WHITE)
+    WIN.fill(CREEM)
+    WIN.blit ( tetris_txt, (tetris_txt_x,tetris_txt_y))
     drawGrid(grid)
     new_shape.drawShape()
     drawCubeList(cubeList)        

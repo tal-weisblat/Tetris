@@ -25,6 +25,7 @@ RED   = (255,0,0)
 MAROON = (128,0,0)
 GREEN = (51,51,0)
 GREY = (105,105,105)
+CREEM = (254,251,234)
 
 # GRID
 COL_NUM = 8  
@@ -40,7 +41,19 @@ pygame.mixer.init()
 COLLISION_SOUND = pygame.mixer.Sound(os.path.join('files/sounds', 'tick.mp3'))
 LINEREMOVE_SOUND = pygame.mixer.Sound(os.path.join('files/sounds','line_removal_2.wav'))
 
-
 # EVENTS 
 GAMEOVER = pygame.USEREVENT + 1 
+
+
+# FONTS 
+TETRIS_FONT  = pygame.font.SysFont('comicsans', 60)   
+
+
+# TEXTS
+tetris_txt  = TETRIS_FONT.render('Tetris',1, BLACK)  
+
+
+# TEXTS COORDINATES
+(tetris_txt_x,tetris_txt_y) = (GRID_WIDTH + (WIN_WIDTH - GRID_WIDTH)/2  - tetris_txt.get_width()/2,10)
+ 
  
