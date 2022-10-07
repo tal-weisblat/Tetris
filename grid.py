@@ -5,7 +5,7 @@ from gameSettings import *
 # ----------------------------------- CREATE -------------------------------------- 
 def createGrid():  
     gridGui = []
-    box_face = WIN_WIDTH/COL_NUM
+    box_face = GRID_WIDTH/COL_NUM
     for row in range(ROW_NUM):
         for col in range(COL_NUM):
             x = col*box_face

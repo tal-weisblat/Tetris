@@ -15,7 +15,7 @@ class CubeShape():
 
 
     def __collision_with_cubeList__(self, cubeList, label):
-        BOX_FACE = WIN_WIDTH/COL_NUM 
+        BOX_FACE = GRID_WIDTH/COL_NUM 
         temp_shape = []                              
         no_collision = True 
         for cube in self.listOfCubes: 
@@ -37,7 +37,7 @@ class CubeShape():
     
     def moveShape(self, keys, key_pressed, cubeList):
         
-        BOX_FACE = WIN_WIDTH/COL_NUM
+        BOX_FACE = GRID_WIDTH/COL_NUM
 
         # downwards
         for cube in self.listOfCubes: cube.y += SHAPE_VEL
@@ -53,8 +53,8 @@ class CubeShape():
         # right 
         if ( (keys[pygame.K_RIGHT]) and  
              (key_pressed == False) and 
-             (self.listOfCubes[0].x + BOX_FACE < WIN_WIDTH) and 
-             (self.listOfCubes[0].x + BOX_FACE < WIN_WIDTH) and 
+             (self.listOfCubes[0].x + BOX_FACE < GRID_WIDTH) and 
+             (self.listOfCubes[0].x + BOX_FACE < GRID_WIDTH) and 
              (no_collision_right) ) : 
 
             key_pressed = True 

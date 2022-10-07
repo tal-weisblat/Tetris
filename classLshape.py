@@ -29,7 +29,7 @@ class Lshape():
     
     def __collision_with_cubeList__(self, cubeList, label):
         
-        BOX_FACE = WIN_WIDTH/COL_NUM
+        BOX_FACE = GRID_WIDTH/COL_NUM
         
         # right 
         temp_shape = []                              
@@ -50,7 +50,7 @@ class Lshape():
 
     def moveShape(self, keys, key_pressed, cubeList):
 
-        BOX_FACE = WIN_WIDTH/COL_NUM
+        BOX_FACE = GRID_WIDTH/COL_NUM
 
         # downwards
         for cube in self.listOfCubes: cube.y += SHAPE_VEL
@@ -68,7 +68,7 @@ class Lshape():
         # right         
         if ( (keys[pygame.K_RIGHT])         and  
              (key_pressed == False)         and 
-             (x_max + BOX_FACE < WIN_WIDTH) and 
+             (x_max + BOX_FACE < GRID_WIDTH) and 
              (no_collision_right)): 
              
             key_pressed = True 

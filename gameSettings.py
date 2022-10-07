@@ -5,12 +5,18 @@ import numpy as np
 import os
 
 
-# WINDOWS
-WIN_WIDTH  = 100 * 4  
+# WINDOW
+WIN_WIDTH  = 100 * 7  
 WIN_HEIGHT = 100 * 6 
 WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption('Tetris')
 pygame.init()
+
+# GRID 
+GRID_WIDTH  = 100 * 4  
+GRID_HEIGHT = 100 * 6 
+
+
 
 # COLORS 
 WHITE = (255,255,255)
@@ -23,7 +29,7 @@ GREY = (105,105,105)
 # GRID
 COL_NUM = 8  
 ROW_NUM = 12 
-CUBE_FACE = WIN_WIDTH/COL_NUM
+CUBE_FACE = GRID_WIDTH/COL_NUM
 
 # VELOCITY 
 SHAPE_VEL = 2.5

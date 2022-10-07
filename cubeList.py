@@ -17,10 +17,10 @@ def addCube(cubeList, new_shape):
 
     # hit bottom
     max_y = max(cube.y for cube in new_shape.listOfCubes)
-    if max_y  >= WIN_HEIGHT - CUBE_FACE:    
+    if max_y  >= GRID_HEIGHT - CUBE_FACE:    
             
         # adjust cubes within new_shape
-        delta = WIN_HEIGHT - (max_y + CUBE_FACE)    
+        delta = GRID_HEIGHT - (max_y + CUBE_FACE)    
         for cube in new_shape.listOfCubes: cube.y += delta
         
         # add cubes to cubeList 
@@ -68,11 +68,11 @@ def addCube(cubeList, new_shape):
 
 # ------------------------------------- REMOVE-ROW -------------------------------------------
 def removeRows(cubeList): 
-    for y in np.arange(0, WIN_HEIGHT, CUBE_FACE):
+    for y in np.arange(0, GRID_HEIGHT, CUBE_FACE):
         
         # check row 
         rowFilled = True
-        for x in np.arange(0, WIN_WIDTH, CUBE_FACE):
+        for x in np.arange(0, GRID_WIDTH, CUBE_FACE):
             boxFilled = False
             for cube_shape in cubeList: 
                 if cube_shape.cube.x == x and cube_shape.cube.y == y:
@@ -85,9 +85,9 @@ def removeRows(cubeList):
         
         # remove-row
         if rowFilled: 
-            for x in np.arange(0, WIN_WIDTH, CUBE_FACE):
+            for x in np.arange(0, GRID_WIDTH, CUBE_FACE):
                 for cube_shape in cubeList: 
-                    if (cube_shape.cube.y == y) and (cube_shape.cube.x in  np.arange(0, WIN_WIDTH, CUBE_FACE)): 
+                    if (cube_shape.cube.y == y) and (cube_shape.cube.x in  np.arange(0, GRID_WIDTH, CUBE_FACE)): 
                         cubeList.remove(cube_shape)
                         LINEREMOVE_SOUND.play()
 
