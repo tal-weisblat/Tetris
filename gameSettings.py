@@ -46,14 +46,17 @@ GAMEOVER = pygame.USEREVENT + 1
 
 
 # FONTS 
-TETRIS_FONT  = pygame.font.SysFont('comicsans', 60)   
+TETRIS_FONT    = pygame.font.SysFont('comicsans', 60)   
+NEXTSHAPE_FONT = pygame.font.SysFont('comicsans', 30)   
 
 
 # TEXTS
-tetris_txt  = TETRIS_FONT.render('Tetris',1, BLACK)  
+tetris_txt    = TETRIS_FONT.render('Tetris',1, BLACK)  
+nextShape_txt = NEXTSHAPE_FONT.render('Next shape:',1, BLACK)  
 
 
 # TEXTS COORDINATES
-(tetris_txt_x,tetris_txt_y) = (GRID_WIDTH + (WIN_WIDTH - GRID_WIDTH)/2  - tetris_txt.get_width()/2,10)
- 
+GAP = 10 
+(tetris_txt_x,tetris_txt_y) = (GRID_WIDTH + (WIN_WIDTH - GRID_WIDTH)/2  - tetris_txt.get_width()/2, GAP)
+(nextShape_txt_x, nextShape_txt_y) = (GRID_WIDTH + (WIN_WIDTH - GRID_WIDTH)/2  - nextShape_txt.get_width()/2 - 4*GAP, tetris_txt.get_height() + 5*GAP) 
  
