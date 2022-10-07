@@ -26,7 +26,8 @@ ROW_NUM = 12
 CUBE_FACE = WIN_WIDTH/COL_NUM
 
 # VELOCITY 
-SHAPE_VEL = 4
+SHAPE_VEL = 2.5
+SHAPE_FAST_VEL = 5
 
 # SOUNDS 
 pygame.mixer.init()
@@ -36,3 +37,4 @@ LINEREMOVE_SOUND = pygame.mixer.Sound(os.path.join('files/sounds','line_removal_
 
 # EVENTS 
 GAMEOVER = pygame.USEREVENT + 1 
+ 

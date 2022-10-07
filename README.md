@@ -23,6 +23,8 @@ git clone ```https://github.com/tal-weisblat/Tetris.git```
 
 * Left arrow -> Move the piece to the left
 
+* Down arrow -> Move the picee faster downwards
+
 * Space bar -> Rotate the peice 
 
 

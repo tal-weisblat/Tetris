@@ -53,9 +53,15 @@ class FatCubeShape():
         no_collision_right = self.__collision_with_cubeList__(cubeList, 'right')
         no_collision_left  = self.__collision_with_cubeList__(cubeList, 'left')
         
+
+        # down 
+        if ( keys[pygame.K_DOWN] and key_pressed == False ):
+            key_pressed = True 
+            for box in self.listOfCubes: box.y += SHAPE_FAST_VEL 
+
         # right         
-        if ( (keys[pygame.K_RIGHT])         and  
-                (key_pressed == False)         and 
+        if ( (keys[pygame.K_RIGHT]) and  
+                (key_pressed == False) and 
                 (x_max + BOX_FACE < WIN_WIDTH) and 
                 (no_collision_right)): 
                 
