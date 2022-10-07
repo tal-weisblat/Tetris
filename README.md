@@ -6,7 +6,7 @@ On progress ...
 ![A demonstration of the snake game](files/images/game_recording.gif) 
 
 
-<br>
+
 <h1>Instructions </h1>
 
 1. Make sure you have Python-3 installed and working 
@@ -16,16 +16,16 @@ git clone ```https://github.com/tal-weisblat/Tetris.git```
 4. Run <i>game.py</i> to run the application 
 
 
-<br>
+
 <h1> Game Controls </h1>
 
-* Right arrow -> Move the piece to the right
+* Right arrow --> Move the piece to the right
 
-* Left arrow -> Move the piece to the left
+* Left arrow --> Move the piece to the left
 
-* Down arrow -> Move the picee faster downwards
+* Down arrow --> Move the picee faster downwards
 
-* Space bar -> Rotate the peice 
+* Space bar --> Rotate the peice 
 
 * P button --> pause/continue game 
 
