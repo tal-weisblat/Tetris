@@ -2,6 +2,7 @@
 
 import pygame 
 import numpy as np
+import time 
 import random
 import os
 
@@ -51,6 +52,7 @@ ROWREMOVED = pygame.USEREVENT + 2
 TETRIS_FONT    = pygame.font.SysFont('comicsans', 60)   
 NEXTSHAPE_FONT = pygame.font.SysFont('comicsans', 20)
 LINESREMOVED   = pygame.font.SysFont('comicsans', 20)   
+GAMEDURATION   = pygame.font.SysFont('comicsans', 20)   
 
 
 # TEXTS
@@ -58,12 +60,18 @@ tetris_txt     = TETRIS_FONT.render('Tetris',1, BLACK)
 nextShape_txt  = NEXTSHAPE_FONT.render('Next shape:',1, BLACK)  
 def numOfLines_txt(numRowsRemoved):
   return LINESREMOVED.render('Number of rows:  ' + str (numRowsRemoved), 1, BLACK)  
+def gameDuration_txt(game_time_duration):
+  return GAMEDURATION.render('Time: ' + str(game_time_duration), 1, BLACK)
 
-# COORDINATES
+
+# CONSOLE-COORDINATES
 GAP = 10 
 MIDDLE = GRID_WIDTH + (WIN_WIDTH - GRID_WIDTH)/2  - tetris_txt.get_width()/2
 LEFT   = GRID_WIDTH
-(tetris_txt_x, tetris_txt_y)         = (MIDDLE      , 1*GAP)
-(nextShape_txt_x, nextShape_txt_y)   = (LEFT + 2*GAP, 15*GAP) 
-(drawNextShape_x, drawNextShape_y)   = (LEFT        , 23*GAP)
-(numOfLines_txt_x, numOfLines_txt_y) = (LEFT + 2*GAP, 36*GAP) 
+(tetris_txt_x, tetris_txt_y)             = (MIDDLE,        1*GAP)     # title 
+ 
+(nextShape_txt_x, nextShape_txt_y)       = (LEFT + 2*GAP, 16*GAP)     # next-shape title 
+(drawNextShape_x, drawNextShape_y)       = (LEFT        , 24*GAP)     # draw next-shap
+
+(gameDuration_txt_x, gameDuration_txt_y) = (LEFT + 2*GAP, 38*GAP)     # time elapsed
+(numOfLines_txt_x, numOfLines_txt_y)     = (LEFT + 2*GAP, 41*GAP)     # number of lines removed 

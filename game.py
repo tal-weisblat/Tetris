@@ -37,11 +37,12 @@ def drawConsoleNextShape(next_shape):
 
 
 
-def draw(grid, new_shape, cubeList, next_shape, numRowsRemoved):
+def draw(grid, new_shape, cubeList, next_shape, numRowsRemoved, game_time_duration):
     WIN.fill(CREEM)
     WIN.blit(tetris_txt, (tetris_txt_x,tetris_txt_y))
     WIN.blit(nextShape_txt, (nextShape_txt_x,nextShape_txt_y))
     WIN.blit(numOfLines_txt(numRowsRemoved), (numOfLines_txt_x, numOfLines_txt_y))
+    WIN.blit(gameDuration_txt(game_time_duration), (gameDuration_txt_x, gameDuration_txt_y))
     
     drawConsoleNextShape(next_shape)
 
@@ -71,7 +72,10 @@ def game():
     cubeList = []
     grid = createGrid()
     clock = pygame.time.Clock()
+    time_start = time.time()            # 
+
     numRowsRemoved = 0 
+    fix_time = True 
     key_pressed = False 
     create_new_shape = True 
     space_pressed = False 
@@ -83,6 +87,8 @@ def game():
     while run: 
 
         clock.tick(60)
+        game_time = int(time.time() - time_start)
+
 
         # events 
         for event in pygame.event.get():
@@ -99,6 +105,27 @@ def game():
                 numRowsRemoved += 1 
                 
 
+        # game-over 
+        if game_over: 
+            
+            if fix_time:
+                entire_game_time = game_time
+                fix_time = False 
+
+            WIN.fill(CREEM)
+            WIN.blit(tetris_txt, (tetris_txt_x,tetris_txt_y))
+            WIN.blit(nextShape_txt, (nextShape_txt_x,nextShape_txt_y))
+            WIN.blit(numOfLines_txt(numRowsRemoved), (numOfLines_txt_x, numOfLines_txt_y))
+            WIN.blit(gameDuration_txt(entire_game_time), (gameDuration_txt_x, gameDuration_txt_y))
+            
+            drawGrid(grid)
+            #drawConsoleNextShape(next_shape)
+            #new_shape.drawShape()
+            #drawCubeList(cubeList)        
+            pygame.display.update()
+            continue
+
+         
 
         # new & next shapes  
         if create_new_shape == True:
@@ -119,8 +146,8 @@ def game():
 
         # pause-game 
         pause_game, K_p_pressed = p_button_pressed(keys, pause_game, K_p_pressed)
-        if pause_game:         
-            draw(grid, new_shape, cubeList, next_shape, numRowsRemoved)
+        if pause_game:      
+            draw(grid, new_shape, cubeList, next_shape, numRowsRemoved, game_time)
             continue 
 
         # move-downwards 
@@ -138,12 +165,10 @@ def game():
         # remove row 
         removeRows(cubeList)
 
-        # game-over 
-        if game_over: 
-            print ('GAME OVER')
+        
 
         # draw 
-        draw(grid, new_shape, cubeList, next_shape, numRowsRemoved)
+        draw(grid, new_shape, cubeList, next_shape, numRowsRemoved, game_time)
 
 game()
 

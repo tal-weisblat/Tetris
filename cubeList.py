@@ -41,7 +41,9 @@ def addCube(cubeList, new_shape):
                 if new_cube.colliderect(cube_list.cube):
                 
                     # game-over (event) 
-                    if cube_list.cube.y <= 0: 
+                    print (new_cube.y)
+                    if new_cube.y <= CUBE_FACE: 
+                        print (1)
                         pygame.event.post(pygame.event.Event(GAMEOVER))
                         
                     # adjust cubes in new_shape 
