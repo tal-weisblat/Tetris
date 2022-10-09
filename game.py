@@ -4,15 +4,14 @@
 from gameSettings import *
 
 
+from gameObjects.grid import createGrid, drawGrid    
+from gameObjects.cubeList import addCube, drawCubeList, removeRows
 
-
-from grid import createGrid, drawGrid    
-from cubeList import addCube, drawCubeList, removeRows
-from classCubeShape import CubeShape
-from classLshape import Lshape
-from classLineShape import LineShape
-from classShortLineShape import ShortLineShape
-from classFatCubeShape import FatCubeShape
+from gameShapes.classCubeShape import CubeShape
+from gameShapes.classLshape import Lshape
+from gameShapes.classLineShape import LineShape
+from gameShapes.classShortLineShape import ShortLineShape
+from gameShapes.classFatCubeShape import FatCubeShape
 
 
 

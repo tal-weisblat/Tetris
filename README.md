@@ -1,7 +1,7 @@
 # Tetris Game
 
 
-![A demonstration of the snake game](files/images/game_record.gif) 
+![A demonstration of the snake game](imageFiles/game_demo.gif) 
 
 
 

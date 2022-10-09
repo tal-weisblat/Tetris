@@ -1,5 +1,12 @@
 
 
+
+'''
+This file contain all game-settings plus the libraries necessary 
+for the game. Almost each file in the app import from gameSetting. 
+'''
+
+
 import pygame 
 import numpy as np
 import time 
@@ -17,6 +24,32 @@ pygame.init()
 # GRID 
 GRID_WIDTH  = 100 * 4  
 GRID_HEIGHT = 100 * 6 
+COL_NUM = 8  
+ROW_NUM = 12 
+CUBE_FACE = GRID_WIDTH/COL_NUM
+
+
+
+
+
+# EVENTS 
+GAMEOVER   = pygame.USEREVENT + 1 
+ROWREMOVED = pygame.USEREVENT + 2 
+
+
+
+
+# VELOCITY 
+SHAPE_VEL = 2.5
+SHAPE_FAST_VEL = 5
+
+
+
+# SOUNDS 
+pygame.mixer.init()
+COLLISION_SOUND = pygame.mixer.Sound(os.path.join('soundFiles', 'tick.mp3'))
+LINEREMOVE_SOUND = pygame.mixer.Sound(os.path.join('soundFiles','line_removal.wav'))
+GAMEOVER_SOUND   = pygame.mixer.Sound(os.path.join('soundFiles', 'game_over.wav'))
 
 
 
@@ -31,34 +64,11 @@ CREEM = (254,251,234)
 PINK = (255,204,209)
 
 
-
-# GRID
-COL_NUM = 8  
-ROW_NUM = 12 
-CUBE_FACE = GRID_WIDTH/COL_NUM
-
-# VELOCITY 
-SHAPE_VEL = 2.5
-SHAPE_FAST_VEL = 5
-
-# SOUNDS 
-pygame.mixer.init()
-COLLISION_SOUND = pygame.mixer.Sound(os.path.join('files/sounds', 'tick.mp3'))
-LINEREMOVE_SOUND = pygame.mixer.Sound(os.path.join('files/sounds','line_removal_2.wav'))
-GAMEOVER_SOUND   = pygame.mixer.Sound(os.path.join('files/sounds', 'game_over.wav'))
-
-
-# EVENTS 
-GAMEOVER   = pygame.USEREVENT + 1 
-ROWREMOVED = pygame.USEREVENT + 2 
-
-
 # FONTS 
 TETRIS_FONT    = pygame.font.SysFont('comicsans', 60)   
 NEXTSHAPE_FONT = pygame.font.SysFont('comicsans', 20)
 LINESREMOVED   = pygame.font.SysFont('comicsans', 20)   
 GAMEDURATION   = pygame.font.SysFont('comicsans', 20)   
-
 
 # TEXTS
 tetris_txt     = TETRIS_FONT.render('Tetris',1, BLACK)  
@@ -68,6 +78,9 @@ def numOfLines_txt(numRowsRemoved):
 def gameDuration_txt(game_time_duration):
   return GAMEDURATION.render('Time: ' + str(game_time_duration), 1, BLACK)
 gameOver_txt = TETRIS_FONT.render('Game over',1, BLACK)  
+
+
+
 
 # CONSOLE-COORDINATES
 GAP = 10 

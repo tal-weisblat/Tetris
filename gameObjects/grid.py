@@ -2,6 +2,13 @@
 from gameSettings import *
 
 
+'''
+The grid at the backgournd. 
+Involve two functions: Create & Draw. 
+Its dimentions is detmined by gameSettings 
+'''
+
+
 # ----------------------------------- CREATE -------------------------------------- 
 def createGrid():  
     gridGui = []

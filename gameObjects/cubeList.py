@@ -1,7 +1,16 @@
 
 
 from gameSettings import * 
-from classCube import Cube
+from gameShapes.classCube import Cube
+
+
+
+
+'''
+This file is about cubeList. 
+This list gather all the shapes that falling from the top of the screen. 
+It has 3 main functions; Draw, Add, Remove-row. 
+'''
 
 
 # ------------------------------------- DRAW ----------------------------------------------
@@ -63,9 +72,6 @@ def addCube(cubeList, new_shape):
             if collision: break
 
     return create_new_shape
-
-
-
 
 
 # ------------------------------------- REMOVE-ROW -------------------------------------------
