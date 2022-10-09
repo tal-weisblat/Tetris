@@ -36,6 +36,19 @@ def drawConsoleNextShape(next_shape):
         pygame.draw.rect(WIN, color, cube_temp)
 
 
+def drawGameOver(numRowsRemoved, entire_game_time):
+    WIN.fill(CREEM)
+    WIN.blit(tetris_txt, (tetris_txt_x,tetris_txt_y))
+    WIN.blit(nextShape_txt, (nextShape_txt_x,nextShape_txt_y))
+    WIN.blit(numOfLines_txt(numRowsRemoved), (numOfLines_txt_x, numOfLines_txt_y))
+    WIN.blit(gameDuration_txt(entire_game_time), (gameDuration_txt_x, gameDuration_txt_y))
+    gameOverBackround = pygame.Rect(0, 0, GRID_WIDTH, GRID_HEIGHT)
+    pygame.draw.rect(WIN, PINK, gameOverBackround)
+    WIN.blit(gameOver_txt, (gameOver_txt_x,gameOver_txt_y))
+    pygame.display.update()
+
+    
+
 
 def draw(grid, new_shape, cubeList, next_shape, numRowsRemoved, game_time_duration):
     WIN.fill(CREEM)
@@ -43,14 +56,11 @@ def draw(grid, new_shape, cubeList, next_shape, numRowsRemoved, game_time_durati
     WIN.blit(nextShape_txt, (nextShape_txt_x,nextShape_txt_y))
     WIN.blit(numOfLines_txt(numRowsRemoved), (numOfLines_txt_x, numOfLines_txt_y))
     WIN.blit(gameDuration_txt(game_time_duration), (gameDuration_txt_x, gameDuration_txt_y))
-    
     drawConsoleNextShape(next_shape)
-
     drawGrid(grid)
     new_shape.drawShape()
     drawCubeList(cubeList)        
     pygame.display.update()
-
 
 def p_button_pressed(keys, pause_game, K_p_pressed):
 
@@ -98,6 +108,7 @@ def game():
                 break
             
             if event.type == GAMEOVER:
+                GAMEOVER_SOUND.play()
                 game_over = True 
                 break
 
@@ -106,25 +117,12 @@ def game():
                 
 
         # game-over 
-        if game_over: 
-            
-            if fix_time:
+        if game_over:
+            if fix_time: 
                 entire_game_time = game_time
-                fix_time = False 
-
-            WIN.fill(CREEM)
-            WIN.blit(tetris_txt, (tetris_txt_x,tetris_txt_y))
-            WIN.blit(nextShape_txt, (nextShape_txt_x,nextShape_txt_y))
-            WIN.blit(numOfLines_txt(numRowsRemoved), (numOfLines_txt_x, numOfLines_txt_y))
-            WIN.blit(gameDuration_txt(entire_game_time), (gameDuration_txt_x, gameDuration_txt_y))
-            
-            drawGrid(grid)
-            #drawConsoleNextShape(next_shape)
-            #new_shape.drawShape()
-            #drawCubeList(cubeList)        
-            pygame.display.update()
+                fix_time = False
+            drawGameOver(numRowsRemoved, entire_game_time)
             continue
-
          
 
         # new & next shapes  
