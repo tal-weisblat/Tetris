@@ -1,24 +1,39 @@
 
 
 
-from gameSettings import * 
+from game_settings import * 
 
 
-class Lshape():
+class LineShape():
 
     def __init__(self, color): 
-        
-        self.color = color 
-        self.listOfCubes = []
 
-        cube_1 = pygame.Rect(1*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
-        cube_2 = pygame.Rect(1*CUBE_FACE,50, CUBE_FACE, CUBE_FACE)
-        cube_3 = pygame.Rect(2*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
-        cube_4 = pygame.Rect(3*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
+        self.color = color
+        self.listOfCubes = []
+        cube_1 = pygame.Rect(CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
+        cube_2 = pygame.Rect(2*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
+        cube_3 = pygame.Rect(3*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
+        cube_4 = pygame.Rect(4*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
         self.listOfCubes.append(cube_1)
         self.listOfCubes.append(cube_2)
         self.listOfCubes.append(cube_3)
         self.listOfCubes.append(cube_4)
+
+
+    def __collision_with_cubeList__(self, cubeList, label):
+        BOX_FACE = GRID_WIDTH/COL_NUM 
+        temp_shape = []                              
+        no_collision = True 
+        for cube in self.listOfCubes: 
+            temp_cube = pygame.Rect(cube.x, cube.y, BOX_FACE, BOX_FACE)
+            if label == 'right': temp_cube.x += BOX_FACE
+            if label == 'left' : temp_cube.x -= BOX_FACE
+            temp_shape.append(temp_cube)
+        for cube_list in cubeList:
+            for temp_cube in temp_shape: 
+                if cube_list.cube.colliderect(temp_cube):
+                    no_collision = False 
+        return no_collision
 
 
     def drawShape(self):
@@ -27,28 +42,7 @@ class Lshape():
 
 
     
-    def __collision_with_cubeList__(self, cubeList, label):
-        
-        BOX_FACE = GRID_WIDTH/COL_NUM
-        
-        # right 
-        temp_shape = []                              
-        no_collision = True 
-        for cube in self.listOfCubes: 
-            temp_cube = pygame.Rect(cube.x, cube.y, BOX_FACE, BOX_FACE)
-            if label == 'right': temp_cube.x += BOX_FACE
-            if label == 'left' : temp_cube.x -= BOX_FACE
-            temp_shape.append(temp_cube)
-
-        for cube_list in cubeList:
-            for temp_cube in temp_shape: 
-                if cube_list.cube.colliderect(temp_cube):
-                    no_collision = False 
-
-        return no_collision
-
-
-    def moveShape(self, keys, key_pressed, cubeList):
+    def move_shape(self, keys, key_pressed, cubeList):
 
         BOX_FACE = GRID_WIDTH/COL_NUM
 
@@ -59,11 +53,12 @@ class Lshape():
         x_min = min(box.x for box in self.listOfCubes)
         no_collision_right = self.__collision_with_cubeList__(cubeList, 'right')
         no_collision_left  = self.__collision_with_cubeList__(cubeList, 'left')
-
+        
         # down 
         if ( keys[pygame.K_DOWN] and key_pressed == False ):
             key_pressed = True 
             for box in self.listOfCubes: box.y += SHAPE_FAST_VEL 
+
 
         # right         
         if ( (keys[pygame.K_RIGHT])         and  
@@ -85,7 +80,7 @@ class Lshape():
             
         return key_pressed
 
- 
+    
 
 
     def rotate(self, keys, space_pressed):
@@ -96,31 +91,23 @@ class Lshape():
             # SWITCH (to next phase)
             x1 = self.listOfCubes[0].x
             x2 = self.listOfCubes[1].x
-            x3 = self.listOfCubes[2].x
-            x4 = self.listOfCubes[3].x
-            min_x = min(x1,x2,x3,x4)
-
-            if x1-min_x == 0 and x2-min_x == 0 and x3-min_x == 50 and x4-min_x == 100:  
-                x1, x2, x3, x4 = 0, 50, 50, 50 
-                y1, y2, y3, y4 = 0, 0, 50, 100 
-            elif x1-min_x == 0 and x2-min_x == 50 and x3-min_x == 50 and x4-min_x == 50:  
-                x1, x2, x3, x4 = 100, 100, 50, 0
-                y1, y2, y3, y4 = 0, 50, 50, 50 
-            elif x1-min_x == 100 and x2-min_x == 100 and x3-min_x == 50 and x4-min_x == 0:  
-                x1, x2, x3, x4 = 0, 0, 0, 50 
-                y1, y2, y3, y4 = 0, 50, 100, 100   
-            elif x1-min_x == 0 and x2-min_x == 0 and x3-min_x == 0 and x4-min_x == 50:  
-                x1, x2, x3, x4 = 0, 0, 50, 100
-                y1, y2, y3, y4 = 0, 50, 0, 0 
+            y1 = self.listOfCubes[0].y
+            if x1 == x2: 
+                x2, y2 = x1 + 1*CUBE_FACE, y1
+                x3, y3 = x1 + 2*CUBE_FACE, y1 
+                x4, y4 = x1 + 3*CUBE_FACE, y1 
+            else: 
+                x2, y2 = x1, y1 + 1*CUBE_FACE
+                x3, y3 = x1, y1 + 2*CUBE_FACE
+                x4, y4 = x1, y1 + 3*CUBE_FACE
             
             # inner boxes 
-            y = self.listOfCubes[0].y
-            cube_1 = pygame.Rect(x1+min_x, y1+y, CUBE_FACE, CUBE_FACE)
-            cube_2 = pygame.Rect(x2+min_x, y2+y, CUBE_FACE, CUBE_FACE)
-            cube_3 = pygame.Rect(x3+min_x, y3+y, CUBE_FACE, CUBE_FACE)
-            cube_4 = pygame.Rect(x4+min_x, y4+y, CUBE_FACE, CUBE_FACE)
+            cube_1 = pygame.Rect(x1, y1, CUBE_FACE, CUBE_FACE)
+            cube_2 = pygame.Rect(x2, y2, CUBE_FACE, CUBE_FACE)
+            cube_3 = pygame.Rect(x3, y3, CUBE_FACE, CUBE_FACE)
+            cube_4 = pygame.Rect(x4, y4, CUBE_FACE, CUBE_FACE)
 
-            # complex object (the union of boxes)
+            # add 
             self.listOfCubes.clear()
             self.listOfCubes.append(cube_1)
             self.listOfCubes.append(cube_2)
@@ -128,5 +115,4 @@ class Lshape():
             self.listOfCubes.append(cube_4)
 
         return space_pressed
-    
     

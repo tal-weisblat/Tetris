@@ -1,25 +1,19 @@
 
 
+from game_settings import * 
 
-from gameSettings import * 
 
+class ShortLineShape():
 
-class LineShape():
+    def __init__(self, color):
 
-    def __init__(self, color): 
-
-        self.color = color
+        self.color = color 
         self.listOfCubes = []
         cube_1 = pygame.Rect(CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
         cube_2 = pygame.Rect(2*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
-        cube_3 = pygame.Rect(3*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
-        cube_4 = pygame.Rect(4*CUBE_FACE,0, CUBE_FACE, CUBE_FACE)
         self.listOfCubes.append(cube_1)
         self.listOfCubes.append(cube_2)
-        self.listOfCubes.append(cube_3)
-        self.listOfCubes.append(cube_4)
-
-
+        
     def __collision_with_cubeList__(self, cubeList, label):
         BOX_FACE = GRID_WIDTH/COL_NUM 
         temp_shape = []                              
@@ -41,8 +35,7 @@ class LineShape():
             pygame.draw.rect(WIN, self.color, cube)
 
 
-    
-    def moveShape(self, keys, key_pressed, cubeList):
+    def move_shape(self, keys, key_pressed, cubeList):
 
         BOX_FACE = GRID_WIDTH/COL_NUM
 
@@ -58,7 +51,6 @@ class LineShape():
         if ( keys[pygame.K_DOWN] and key_pressed == False ):
             key_pressed = True 
             for box in self.listOfCubes: box.y += SHAPE_FAST_VEL 
-
 
         # right         
         if ( (keys[pygame.K_RIGHT])         and  
@@ -80,39 +72,30 @@ class LineShape():
             
         return key_pressed
 
-    
-
 
     def rotate(self, keys, space_pressed):
         
         if keys[pygame.K_SPACE] and (space_pressed == False):    
             space_pressed = True 
 
-            # SWITCH (to next phase)
+            # switch (to next phase)
             x1 = self.listOfCubes[0].x
             x2 = self.listOfCubes[1].x
             y1 = self.listOfCubes[0].y
-            if x1 == x2: 
-                x2, y2 = x1 + 1*CUBE_FACE, y1
-                x3, y3 = x1 + 2*CUBE_FACE, y1 
-                x4, y4 = x1 + 3*CUBE_FACE, y1 
-            else: 
-                x2, y2 = x1, y1 + 1*CUBE_FACE
-                x3, y3 = x1, y1 + 2*CUBE_FACE
-                x4, y4 = x1, y1 + 3*CUBE_FACE
-            
+            if x1 == x2: x2, y2 = x1 + 1*CUBE_FACE, y1
+            else:        x2, y2 = x1, y1 + 1*CUBE_FACE
+                
             # inner boxes 
             cube_1 = pygame.Rect(x1, y1, CUBE_FACE, CUBE_FACE)
             cube_2 = pygame.Rect(x2, y2, CUBE_FACE, CUBE_FACE)
-            cube_3 = pygame.Rect(x3, y3, CUBE_FACE, CUBE_FACE)
-            cube_4 = pygame.Rect(x4, y4, CUBE_FACE, CUBE_FACE)
-
+            
             # add 
             self.listOfCubes.clear()
             self.listOfCubes.append(cube_1)
             self.listOfCubes.append(cube_2)
-            self.listOfCubes.append(cube_3)
-            self.listOfCubes.append(cube_4)
 
         return space_pressed
     
+
+        pass
+

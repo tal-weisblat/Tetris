@@ -1,7 +1,7 @@
 
 
-from gameSettings import * 
-from gameShapes.classCube import Cube
+from game_settings import * 
+from src.shapes.cube import Cube
 
 
 
@@ -14,13 +14,13 @@ It has 3 main functions; Draw, Add, Remove-row.
 
 
 # ------------------------------------- DRAW ----------------------------------------------
-def drawCubeList(cubeList):
+def draw_cube_list(cubeList):
     for shape in cubeList:
         pygame.draw.rect(WIN, shape.color, shape.cube)        
 
 
 # ------------------------------------- ADD -----------------------------------------------
-def addCube(cubeList, new_shape):
+def add_cube(cubeList, new_shape):
 
     create_new_shape = False  
 
@@ -28,20 +28,17 @@ def addCube(cubeList, new_shape):
     max_y = max(cube.y for cube in new_shape.listOfCubes)
     if max_y  >= GRID_HEIGHT - CUBE_FACE:    
             
-        # adjust cubes within new_shape
-        delta = GRID_HEIGHT - (max_y + CUBE_FACE)    
+        delta = GRID_HEIGHT - (max_y + CUBE_FACE) # adjust cubes within new_shape
         for cube in new_shape.listOfCubes: cube.y += delta
         
-        # add cubes to cubeList 
-        for cube in new_shape.listOfCubes:
+        for cube in new_shape.listOfCubes: # add cubes to cubeList 
             temp_cube = Cube(cube.x, cube.y, new_shape.color)
             cubeList.append(temp_cube) 
         
         create_new_shape = True
         COLLISION_SOUND.play()
         
-    # hit cubes in cubeList 
-    else: 
+    else: # hit cubes in cubeList 
         for new_cube in new_shape.listOfCubes:  
             collision = False 
             for cube_list in cubeList: 
@@ -50,7 +47,6 @@ def addCube(cubeList, new_shape):
                 if new_cube.colliderect(cube_list.cube):
                 
                     # game-over (event) 
-                    print (new_cube.y)
                     if new_cube.y <= CUBE_FACE: 
                         print (1)
                         pygame.event.post(pygame.event.Event(GAMEOVER))
@@ -75,11 +71,10 @@ def addCube(cubeList, new_shape):
 
 
 # ------------------------------------- REMOVE-ROW -------------------------------------------
-def removeRows(cubeList): 
+def remove_rows(cubeList): 
     for y in np.arange(0, GRID_HEIGHT, CUBE_FACE):
         
-        # check row 
-        rowFilled = True
+        rowFilled = True # check row 
         for x in np.arange(0, GRID_WIDTH, CUBE_FACE):
             boxFilled = False
             for cube_shape in cubeList: 
@@ -91,8 +86,7 @@ def removeRows(cubeList):
                 rowFilled = False
                 break 
         
-        # remove-row
-        if rowFilled: 
+        if rowFilled: # remove-row
             pygame.event.post(pygame.event.Event(ROWREMOVED))
             for x in np.arange(0, GRID_WIDTH, CUBE_FACE):
                 for cube_shape in cubeList: 
@@ -100,8 +94,7 @@ def removeRows(cubeList):
                         cubeList.remove(cube_shape)
                         LINEREMOVE_SOUND.play()
 
-        # lower above rows
-        if rowFilled: 
+        if rowFilled: # lower above rows
             for cube_in_list in cubeList:
                 if cube_in_list.cube.y < y: 
                     cube_in_list.cube.y += CUBE_FACE

@@ -1,5 +1,5 @@
 
-from gameSettings import * 
+from game_settings import * 
 
 
 
@@ -41,7 +41,7 @@ class FatCubeShape():
 
 
 
-    def moveShape(self, keys, key_pressed, cubeList):
+    def move_shape(self, keys, key_pressed, cubeList):
 
         BOX_FACE = GRID_WIDTH/COL_NUM
 

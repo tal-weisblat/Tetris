@@ -1,5 +1,5 @@
 
-from gameSettings import *
+from game_settings import *
 
 
 '''
@@ -10,7 +10,7 @@ Its dimentions is detmined by gameSettings
 
 
 # ----------------------------------- CREATE -------------------------------------- 
-def createGrid():  
+def create_grid():  
     gridGui = []
     box_face = GRID_WIDTH/COL_NUM
     for row in range(ROW_NUM):
@@ -23,6 +23,6 @@ def createGrid():
     return gridGui 
  
  # ------------------------------------ DRAW ---------------------------------------
-def drawGrid(grid):    
+def draw_grid(grid):    
     for box in grid:
         pygame.draw.rect(WIN,BLACK,box,1)

@@ -1,4 +1,0 @@
-
-# not finished yet ... 
-
-numpy==1.18.0

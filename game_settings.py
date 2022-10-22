@@ -47,9 +47,9 @@ SHAPE_FAST_VEL = 5
 
 # SOUNDS 
 pygame.mixer.init()
-COLLISION_SOUND = pygame.mixer.Sound(os.path.join('soundFiles', 'tick.mp3'))
-LINEREMOVE_SOUND = pygame.mixer.Sound(os.path.join('soundFiles','line_removal.wav'))
-GAMEOVER_SOUND   = pygame.mixer.Sound(os.path.join('soundFiles', 'game_over.wav'))
+COLLISION_SOUND = pygame.mixer.Sound(os.path.join('resources/sounds', 'tick.mp3'))
+LINEREMOVE_SOUND = pygame.mixer.Sound(os.path.join('resources/sounds','line_removal.wav'))
+GAMEOVER_SOUND   = pygame.mixer.Sound(os.path.join('resources/sounds', 'game_over.wav'))
 
 
 
